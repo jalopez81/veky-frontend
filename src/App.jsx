@@ -110,8 +110,8 @@ const App = () => {
             />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
-            <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<UserProfilePage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/my-orders" element={<MyOrdersPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/questionnare" element={<QuestionnairePage />} />

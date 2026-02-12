@@ -1,3 +1,4 @@
+
 import {
 	AppBar,
 	Toolbar,
@@ -13,6 +14,7 @@ import {
 } from '@mui/material';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { useI18n } from '../../context/I18nContext';
 import { useEffect, useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
@@ -66,6 +68,7 @@ const classes = {
 const Navbar = () => {
 	const { isAuthenticated, logout, cartCount, getUserRoles, getUsername } =
 		useAppContext();
+	const { t } = useI18n();
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [userAnchorEl, setUserAnchorEl] = useState(null);
@@ -117,6 +120,37 @@ const Navbar = () => {
 		setToolsOpen(!toolsOpen);
 	};
 
+	function LanguageSelector() {
+		const { changeLanguage, currentLanguage } = useI18n();		
+
+		return (
+			<Box sx={{ display: 'flex', gap: 1 }}>
+				{currentLanguage === 'en' && (
+					<Button
+						size="small"
+						color="inherit"
+						variant="text"
+						onClick={() => changeLanguage('es')}
+						sx={{ minWidth: '60px' }}
+					>
+						EN
+					</Button>
+				)}
+				{currentLanguage === 'es' && (
+					<Button
+						size="small"
+						color="inherit"
+						variant="text"
+						onClick={() => changeLanguage('en')}
+						sx={{ minWidth: '60px' }}
+					>
+						ES
+					</Button>
+				)}
+			</Box>
+		);
+	}
+
 	return (
 		<>
 			{/* DESKTOP Navbar */}
@@ -129,7 +163,7 @@ const Navbar = () => {
 					display: { xs: 'none', md: 'flex' },
 				}}
 				className="navbar"
-			>
+			>				
 				<Toolbar
 					sx={{
 						display: 'flex',
@@ -160,8 +194,8 @@ const Navbar = () => {
 						startIcon={<HomeIcon />}
 						sx={{ ...classes.desktopButton, marginLeft: "100px" }}
 					>
-						Inicio
-					</Button>
+						{t('inicio')}
+					</Button>					
 					{isAuthenticated && (
 						<>
 							{getUserRoles().includes(ROLES.admin) && (
@@ -176,7 +210,7 @@ const Navbar = () => {
 											...classes.desktopButton
 										}}
 									>
-										Herramientas
+										{t('herramientas')}
 									</Button>
 								</>
 							)}
@@ -190,7 +224,7 @@ const Navbar = () => {
 						startIcon={<Diversity3Icon />}
 						sx={{ ...classes.desktopButton }}
 					>
-						Acerca de Nosotros
+						{t('acerca-de-nosotros')}
 					</Button>
 					<Button
 						color="inherit"
@@ -200,7 +234,7 @@ const Navbar = () => {
 						startIcon={<ChecklistIcon />}
 						sx={{ ...classes.desktopButton }}
 					>
-						Descubre
+						{t('descubre')}
 					</Button>
 					<Button
 						sx={{ color: "#ffffff", ...classes.desktopButton }}
@@ -209,7 +243,7 @@ const Navbar = () => {
 						to="/products"
 						startIcon={<ShoppingBasketIcon />}
 					>
-						Productos
+						{t('productos')}
 					</Button>
 					<Button
 						color="inherit"
@@ -220,7 +254,7 @@ const Navbar = () => {
 						sx={{ ...classes.desktopButton }}
 					>
 						<Badge badgeContent={cartCount} color="secondary">
-							Carrito &nbsp;
+							{t('carrito')} &nbsp;
 						</Badge>
 					</Button>
 					<Button
@@ -231,7 +265,7 @@ const Navbar = () => {
 						startIcon={<CallIcon />}
 						sx={{ ...classes.desktopButton }}
 					>
-						Contáctanos
+						{t('contactanos')}
 					</Button>
 					{!isAuthenticated && (
 						<Button
@@ -242,7 +276,7 @@ const Navbar = () => {
 							startIcon={<LoginIcon />}
 							sx={{ ...classes.desktopButton }}
 						>
-							Iniciar session
+							{t('iniciar-sesion')}
 						</Button>
 					)}
 
@@ -257,7 +291,7 @@ const Navbar = () => {
 								startIcon={<FavoriteIcon />}
 								sx={{ ...classes.desktopButton }}
 							>
-								Lista de favoritos
+								{t('lista-de-favoritos')}
 							</Button>
 							{getUserRoles().includes(ROLES.admin) && (
 								<>
@@ -284,7 +318,7 @@ const Navbar = () => {
 											<AttachMoneyIcon
 												sx={{ fontSize: 18, marginRight: '.6rem' }}
 											/>{' '}
-											Reporte de ventas
+											{t('reporte-de-ventas')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -295,7 +329,7 @@ const Navbar = () => {
 											<EmojiEventsIcon
 												sx={{ fontSize: 18, marginRight: '.6rem' }}
 											/>{' '}
-											Productos más vendidos
+											{t('productos-mas-vendidos')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -306,7 +340,7 @@ const Navbar = () => {
 											<ProductionQuantityLimitsIcon
 												sx={{ fontSize: 18, marginRight: '.6rem' }}
 											/>{' '}
-											Órdenes pendientes
+											{t('ordenes-pendientes')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -318,7 +352,7 @@ const Navbar = () => {
 											<InventoryIcon
 												sx={{ fontSize: 18, marginRight: '.6rem' }}
 											/>{' '}
-											Reporte de inventario
+											{t('reporte-de-inventario')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -327,7 +361,7 @@ const Navbar = () => {
 											onClick={handleMenuClose}
 										>
 											<PersonIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
-											Reporte de usuarios activos
+											{t('reporte-de-usuarios-activos')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -338,7 +372,7 @@ const Navbar = () => {
 											<CommentIcon
 												sx={{ fontSize: 18, marginRight: '.6rem' }}
 											/>{' '}
-											Reporte de comentarios
+											{t('reporte-de-comentarios')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -348,7 +382,7 @@ const Navbar = () => {
 											divider
 										>
 											<EmailIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
-											Reporte de Contáctanos
+											{t('reporte-de-contactanos')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -356,7 +390,7 @@ const Navbar = () => {
 											to="/products/inventory"
 											onClick={handleMenuClose}
 										>
-											Inventario
+											{t('inventario')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -364,7 +398,7 @@ const Navbar = () => {
 											to="/products/add-new-product"
 											onClick={handleMenuClose}
 										>
-											Agregar producto
+											{t('agregar-producto')}
 										</MenuItem>
 										<MenuItem
 											component={Link}
@@ -372,7 +406,7 @@ const Navbar = () => {
 											to="/users/roles"
 											onClick={handleMenuClose}
 										>
-											Permisos de usuario
+											{t('permisos-de-usuario')}
 										</MenuItem>
 									</Menu>
 								</>
@@ -386,7 +420,7 @@ const Navbar = () => {
 									...classes.desktopButton
 								}}
 							>
-								Hola {`(${getUsername()})`}
+								{t('hola')} {`(${getUsername()})`}
 							</Button>
 
 							{/* user menu  */}
@@ -411,7 +445,7 @@ const Navbar = () => {
 									startIcon={<PersonIcon />}
 									sx={{ justifyContent: 'start', width: '100%' }}
 								>
-									Mi Perfil
+									{t('mi-perfil')}
 								</Button>
 								<Button
 									color="inherit"
@@ -420,7 +454,7 @@ const Navbar = () => {
 									startIcon={<ShoppingBasketIcon />}
 									sx={{ justifyContent: 'start', width: '100%' }}
 								>
-									Mis Pedidos
+									{t('mis-pedidos')}
 								</Button>
 								<Button
 									color="inherit"
@@ -428,13 +462,16 @@ const Navbar = () => {
 									startIcon={<LogoutIcon />}
 									sx={{ justifyContent: 'start', width: '100%' }}
 								>
-									Salir ({getUsername()})
+									{t('salir')} ({getUsername()})
 								</Button>
 							</Menu>
 						</>
 					)}
+					<LanguageSelector />
 				</Toolbar>
 			</AppBar>
+
+			
 
 			{/* MOBILE Navbar */}
 			<AppBar sx={{ display: { xs: 'flex', md: 'none' }, padding: 2 }}>
@@ -466,7 +503,7 @@ const Navbar = () => {
 					onKeyDown={toggleMobileDrawer}
 				>
 					<Typography variant="h6" sx={{ p: 2 }}>
-						Menú
+						{t('menu')}
 					</Typography>
 					<Divider />
 					<Button
@@ -476,7 +513,7 @@ const Navbar = () => {
 						to="/"
 						startIcon={<HomeIcon />}
 					>
-						Inicio
+						{t('inicio')}
 					</Button>
 					<Button
 						color="inherit"
@@ -485,7 +522,7 @@ const Navbar = () => {
 						to="/about-us"
 						startIcon={<Diversity3Icon />}
 					>
-						Acerca de Nosotros
+						{t('acerca-de-nosotros')}
 					</Button>
 					<Button
 						color="inherit"
@@ -494,7 +531,7 @@ const Navbar = () => {
 						to="/questionnare"
 						startIcon={<ChecklistIcon />}
 					>
-						Descubre
+						{t('descubre')}
 					</Button>
 					<Button
 						color="warning"
@@ -503,7 +540,7 @@ const Navbar = () => {
 						to="/products"
 						startIcon={<ShoppingBasketIcon />}
 					>
-						Productos
+						{t('productos')}
 					</Button>
 					<Button
 						color="inherit"
@@ -513,7 +550,7 @@ const Navbar = () => {
 						startIcon={<ShoppingCartIcon />}
 					>
 						<Badge badgeContent={cartCount} color="secondary">
-							Carrito &nbsp;
+							{t('carrito')} &nbsp;
 						</Badge>
 					</Button>
 					<Button
@@ -523,7 +560,7 @@ const Navbar = () => {
 						to="/contactus"
 						startIcon={<CallIcon />}
 					>
-						Contáctanos
+						{t('contactanos')}
 					</Button>
 					<DividerLine />
 					{isAuthenticated && (
@@ -539,7 +576,7 @@ const Navbar = () => {
 									}}
 									sx={{ justifyContent: 'start', width: '100%' }}
 								>
-									Herramientas
+									{t('herramientas')}
 								</Button>
 							)}
 							<Button
@@ -549,7 +586,7 @@ const Navbar = () => {
 								startIcon={<PersonIcon />}
 								sx={{ justifyContent: 'start', width: '100%' }}
 							>
-								Mi Perfil
+								{t('mi-perfil')}
 							</Button>
 							<Button
 								color="inherit"
@@ -558,7 +595,7 @@ const Navbar = () => {
 								startIcon={<ShoppingBasketIcon />}
 								sx={{ justifyContent: 'start', width: '100%' }}
 							>
-								Mis Pedidos
+								{t('mis-pedidos')}
 							</Button>
 							<Button
 								color="inherit"
@@ -566,7 +603,7 @@ const Navbar = () => {
 								startIcon={<LogoutIcon />}
 								sx={{ justifyContent: 'start', width: '100%' }}
 							>
-								Salir ({getUsername()})
+								{t('salir')} ({getUsername()})
 							</Button>
 						</>
 					)}
@@ -578,7 +615,7 @@ const Navbar = () => {
 							to="/login"
 							sx={{ justifyContent: 'start', width: '100%' }}
 						>
-							Iniciar sesión
+							{t('iniciar-sesion')}
 						</Button>
 					)}
 				</Box>
@@ -601,7 +638,7 @@ const Navbar = () => {
 					onKeyDown={toggleToolsDrawer}
 				>
 					<Typography variant="h6" sx={{ mb: 2 }}>
-						Herramientas
+						{t('herramientas')}
 					</Typography>
 					<Divider />
 					<Button
@@ -612,7 +649,7 @@ const Navbar = () => {
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<AttachMoneyIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
-						Reporte de Ventas
+						{t('reporte-de-ventas')}
 					</Button>
 					<Button
 						color="inherit"
@@ -622,7 +659,7 @@ const Navbar = () => {
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<EmojiEventsIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
-						Productos más vendidos
+						{t('productos-mas-vendidos')}
 					</Button>
 					<Button
 						color="inherit"
@@ -634,7 +671,7 @@ const Navbar = () => {
 						<ProductionQuantityLimitsIcon
 							sx={{ fontSize: 18, marginRight: '.6rem' }}
 						/>{' '}
-						Órdenes pendientes
+						{t('ordenes-pendientes')}
 					</Button>
 					<Button
 						color="inherit"
@@ -644,7 +681,7 @@ const Navbar = () => {
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<InventoryIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
-						Reporte de inventario
+						{t('reporte-de-inventario')}
 					</Button>
 					<DividerLine />
 					<MenuItem
@@ -653,7 +690,7 @@ const Navbar = () => {
 						to="/products/inventory"
 						onClick={handleMenuClose}
 					>
-						Inventario
+						{t('inventario')}
 					</MenuItem>
 					<MenuItem
 						component={Link}
@@ -661,7 +698,7 @@ const Navbar = () => {
 						to="/products/add-new-product"
 						onClick={handleMenuClose}
 					>
-						Agregar producto
+						{t('agregar-producto')}
 					</MenuItem>
 					<MenuItem
 						component={Link}
@@ -669,9 +706,10 @@ const Navbar = () => {
 						to="/users/roles"
 						onClick={handleMenuClose}
 					>
-						Permisos de usuario
-					</MenuItem>
-				</Box>
+						{t('permisos-de-usuario')}
+					</MenuItem>										
+				</Box>	
+				
 			</Drawer>
 		</>
 	);

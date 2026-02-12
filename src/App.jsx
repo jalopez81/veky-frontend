@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
+import { I18nProvider } from './context/I18nContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -67,11 +68,12 @@ console.log('App.jsx: console cleared');
 const App = () => {
   return (
     <AppProvider>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Navbar />
-          <ScrollToTop />
-          <Routes>
+      <I18nProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Navbar />
+            <ScrollToTop />
+            <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/home" element={<HomePage />} />
@@ -199,6 +201,7 @@ const App = () => {
           <Footer />
         </Router>
       </ThemeProvider>
+      </I18nProvider>
     </AppProvider>
   );
 };

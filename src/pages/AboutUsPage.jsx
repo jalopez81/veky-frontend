@@ -1,11 +1,13 @@
 import { Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useI18n } from '../context/I18nContext';
 import PageContainer from '../components/PageContainer';
 import PageHeader from '../components/PageHeader';
 import useDeviceType from '../utils/isMobile';
 
 const AboutUsPage = () => {
 	const { isMobile } = useDeviceType();
+	const { t } = useI18n();
 	return (
 		<PageContainer>
 			<PageHeader />
@@ -21,7 +23,7 @@ const AboutUsPage = () => {
 				}}
 			>
 				<Typography variant="h2" gutterBottom fontWeight={700}>
-					Bienvenido a VekyRD
+					{t('bienvenido-a-vekyrd')}
 				</Typography>
 				<Typography
 					variant="body1"
@@ -32,10 +34,7 @@ const AboutUsPage = () => {
 						fontWeight: 700,
 					}}
 				>
-					En VekyRD, nos apasiona cuidar de tu cabello y realzar tu confianza.
-					Somos una empresa dominicana comprometida a ofrecer productos para el
-					cuidado del cabello de la más alta calidad, diseñados para satisfacer
-					las necesidades específicas de cada cliente.
+					{t('about-us-intro')}
 				</Typography>
 				<Box
 					sx={{
@@ -60,26 +59,19 @@ const AboutUsPage = () => {
 					/>
 				</Box>
 				<Typography variant="h4" gutterBottom>
-					Nuestra Visión
+					{t('nuestra-vision')}
 				</Typography>
 				<Typography variant="body1" sx={{ marginBottom: 2, lineHeight: 2 }}>
-					Desde nuestros humildes comienzos, hemos trabajado con un único
-					propósito: hacer que cada persona encuentre el producto perfecto para
-					destacar su estilo único. Nuestra experiencia y dedicación nos
-					permiten brindar soluciones efectivas, desde productos clásicos hasta
-					innovaciones modernas.
+					{t('vision-text-1')}
 				</Typography>
 				<Typography variant="body1" sx={{ marginBottom: 4, lineHeight: 2 }}>
-					Creemos en la importancia de una experiencia de compra sencilla y
-					personalizada. Con una plataforma fácil de usar y un enfoque en el
-					cliente, estamos aquí para garantizar que disfrutes de una atención de
-					primera y productos de calidad incomparable.
+					{t('vision-text-2')}
 				</Typography>
 				<Typography variant="h4" gutterBottom>
-					Nuestra Promesa
+					{t('nuestra-promesa')}
 				</Typography>
 				<Typography variant="body1" sx={{ lineHeight: 2 }}>
-					En VekyRD, nos esforzamos por:
+					{t('promesa-intro')}
 				</Typography>
 				<ul
 					style={{
@@ -89,11 +81,11 @@ const AboutUsPage = () => {
 					}}
 				>
 					<li>
-						Ofrecer una variedad de productos cuidadosamente seleccionados.
+						{t('promesa-1')}
 					</li>
-					<li>Escuchar y adaptarnos a las necesidades de nuestros clientes.</li>
+					<li>{t('promesa-2')}</li>
 					<li>
-						Promover prácticas sostenibles y responsables con el medio ambiente.
+						{t('promesa-3')}
 					</li>
 				</ul>
 				<Box
@@ -110,7 +102,7 @@ const AboutUsPage = () => {
 						component={Link}
 						to="/products"
 					>
-						Ver Productos
+						{t('ver-productos')}
 					</Button>
 					<Button
 						variant="outlined"
@@ -119,7 +111,7 @@ const AboutUsPage = () => {
 						component={Link}
 						to="/contactus"
 					>
-						Contáctanos
+						{t('contactanos')}
 					</Button>
 				</Box>
 			</Box>

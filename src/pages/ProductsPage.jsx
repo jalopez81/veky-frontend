@@ -11,6 +11,9 @@ import {
 } from '../helpers/cartHelpers';
 import { useLocation } from 'react-router-dom';
 import { getRandomColorFromString } from '../utils/colors';
+import { Trans } from 'react-i18next';
+import { useI18n } from '../context/I18nContext';
+
 
 const ProductPage = () => {
 	const [idsInCart, setIdsInCart] = useState([]);
@@ -18,9 +21,9 @@ const ProductPage = () => {
 	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [search, setSearch] = useState('');
+	const { t } = useI18n();
 
 	const location = useLocation();
-	const MOSTRAR_TODOS = 'Todos';
 
 	useEffect(() => {
 		// fetch products
@@ -83,7 +86,7 @@ const ProductPage = () => {
 
 	const filterProducts = (searchTerm, arrProducts, category = null) => {
 		let filtered = arrProducts.filter((product) =>
-			category && category != MOSTRAR_TODOS
+			category && category !== null
 				? product.category === category
 				: true
 		);
@@ -127,8 +130,8 @@ const ProductPage = () => {
 			>
 				<Chip
 					sx={{ background: 'white', outline: 'solid 1px #ccc' }}
-					label={MOSTRAR_TODOS}
-					onClick={() => handleCategoryFilter(MOSTRAR_TODOS, search)}
+					label={<Trans i18nKey="todos"></Trans>}
+					onClick={() => handleCategoryFilter(null, search)}
 				/>
 				{uniqueCategories.map((category) => (
 					<Chip
@@ -145,12 +148,12 @@ const ProductPage = () => {
 	return (
 		<PageContainer>
 			<PageHeader
-				title="Nuestros Productos"
-				subtitle="¡ES TIEMPO DE UN CABELLO HERMOSO!"
+				title={t('nuestros-productos')}
+				subtitle={t('es-tiempo-de-un-cabello-hermoso')}
 				isLoading={isLoading}
-				isLoadingText="Cargando productos..."
+				isLoadingText={t('cargando-productos')}
 			>
-				<NavigationButton href="/cart" text="Carrito ►" />
+				<NavigationButton href="/cart" text={t('carrito')} />
 			</PageHeader>
 
 			{/* Search box */}
@@ -165,7 +168,7 @@ const ProductPage = () => {
 				>
 					<TextField
 						id="search"
-						label="Buscar producto"
+						label={t('buscar-producto')}
 						variant="outlined"
 						fullWidth
 						value={search}

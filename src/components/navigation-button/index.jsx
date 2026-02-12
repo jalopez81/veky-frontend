@@ -17,7 +17,12 @@ const NavigationButton = ({ onClick = null, href = null, text, justifyContent = 
         variant="contained"
         color="secondary"
         to={href}
-        sx={{ marginTop: 2 }}
+        sx={{ 
+          marginTop: 2,
+          '&:hover': {            
+            color: '#ffffff',
+          },
+         }}
         onClick={onClick}
         component={Link}
       >

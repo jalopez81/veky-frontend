@@ -29,6 +29,7 @@ const PageContainer = ({ children, sx }) => {
 					maxWidth: '1200px',
 					margin: 'auto',
 					backgroundColor: '#ffffff',
+					color: '#000000',
 				}}
 			>
 				{children}

@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
+import { useI18n } from '../../context/I18nContext';
 
 const Features = () => {
+  const { t } = useI18n();
   return (
     <Box
       sx={{
@@ -12,17 +14,16 @@ const Features = () => {
     >
       {[
         {
-          title: 'Calidad Garantizada',
-          description:
-            'Los mejores ingredientes para el cuidado de tu cabello.',
+          titleKey: 'calidad-garantizada',
+          descriptionKey: 'calidad-garantizada-desc',
         },
         {
-          title: 'Recomendaciones Personalizadas',
-          description: 'Descubre los productos perfectos para ti.',
+          titleKey: 'recomendaciones-personalizadas',
+          descriptionKey: 'recomendaciones-personalizadas-desc',
         },
         {
-          title: 'Envíos Rápidos',
-          description: 'Recibe tus productos en tiempo récord.',
+          titleKey: 'envios-rapidos',
+          descriptionKey: 'envios-rapidos-desc',
         },
       ].map((feature, index) => (
         <Box
@@ -42,9 +43,9 @@ const Features = () => {
           }}
         >
           <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-            {feature.title}
+            {t(feature.titleKey)}
           </Typography>
-          <Typography>{feature.description}</Typography>
+          <Typography>{t(feature.descriptionKey)}</Typography>
         </Box>
       ))}
     </Box>

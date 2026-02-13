@@ -7,27 +7,29 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { useI18n } from '../../context/I18nContext';
 
 const RecommendedCategories = () => {
+  const { t } = useI18n();
   return (
     <Box sx={{ textAlign: 'center', marginBottom: 6 }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 4 }}>
-        Categorías Destacadas
+        {t('categorias-destacadas')}
       </Typography>
       <Grid container spacing={4}>
         {[
           {
-            title: 'Shampoos',
+            titleKey: 'shampoos',
             image: '/home_page_product1.jpg',
             link: '/products?category=shampoo',
           },
           {
-            title: 'Acondicionadores',
+            titleKey: 'acondicionadores',
             image: '/home_page_product2.jpg',
             link: '/products?category=acondicionador',
           },
           {
-            title: 'Sprays',
+            titleKey: 'sprays',
             image: '/home_page_product3.jpg',
             link: '/products?category=spray',
           },
@@ -38,18 +40,18 @@ const RecommendedCategories = () => {
                 component="img"
                 height="200"
                 image={category.image}
-                alt={category.title}
+                alt={t(category.titleKey)}
               />
               <CardContent>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {category.title}
+                  {t(category.titleKey)}
                 </Typography>
                 <Button
                   variant="outlined"
                   href={category.link}
                   sx={{ marginTop: 2 }}
                 >
-                  Ver Más
+                  {t('ver-mas')}
                 </Button>
               </CardContent>
             </Card>

@@ -1,9 +1,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { apiSendContactUs } from '../../api/api';
+import { useI18n } from '../../context/I18nContext';
 
 
 const Form = () => {
+    const { t } = useI18n();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -39,9 +41,7 @@ const Form = () => {
             setAdditionalDetails('');
             setMessage('');
             setEditing(false);
-            setSuccessMessage(
-                '¡Gracias por contactarnos! Nos pondremos en contacto pronto.'
-            );
+            setSuccessMessage(t('gracias-por-contactarnos'));
         }
     };
 
@@ -65,14 +65,14 @@ const Form = () => {
         >
             <form>
                 <Typography variant="h4" gutterBottom textAlign={'center'} mb={4}>
-                    Envíanos tu mensaje
+                    {t('envianos-tu-mensaje')}
                 </Typography>
                 <TextField
                     label={
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            Nombre
+                            {t('nombre')}
                         </Typography>
                     }
                     name="name"
@@ -87,7 +87,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            Correo Electrónico
+                            {t('correo-electronico')}
                         </Typography>
                     }
                     name="email"
@@ -102,7 +102,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            Teléfono (opcional)
+                            {t('telefono')} (opcional)
                         </Typography>
                     }
                     name="phone"
@@ -117,7 +117,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            Detalles Adicionales (opcional)
+                            {t('detalles-adicionales')} (opcional)
                         </Typography>
                     }
                     name="additionalDetails"
@@ -134,7 +134,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            Mensaje
+                            {t('mensaje')}
                         </Typography>
                     }
                     name="message"

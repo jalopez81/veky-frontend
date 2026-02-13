@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { apiRegister } from '../api/api';
 import PageContainer from '../components/PageContainer';
 import PageHeader from '../components/PageHeader';
+import { useI18n } from '../context/I18nContext';
 
 const RegisterPage = () => {
+  const { t } = useI18n();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,17 +18,17 @@ const RegisterPage = () => {
 
   const validate = () => {
     const errors = {};
-    if (!username.trim()) errors.username = 'El nombre de usuario es requerido';
+    if (!username.trim()) errors.username = t('nombre-usuario-requerido');
     if (!email.trim()) {
-      errors.email = 'El correo electrónico es requerido';
+      errors.email = t('correo-requerido');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = 'El correo electrónico no es válido';
+      errors.email = t('correo-invalido');
     }
-    if (!password) errors.password = 'La contraseña es requerida';
+    if (!password) errors.password = t('contrasena-requerida');
     if (!confirmPassword) {
-      errors.confirmPassword = 'Confirme su contraseña';
+      errors.confirmPassword = t('confirmar-contrasena-requerida');
     } else if (password !== confirmPassword) {
-      errors.confirmPassword = 'Las contraseñas no coinciden';
+      errors.confirmPassword = t('contrasenas-no-coinciden');
     }
     return errors;
   };
@@ -49,11 +51,11 @@ const RegisterPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Registro"></PageHeader>
+      <PageHeader title={t('registro')}></PageHeader>
 
       <Box sx={{ margin: '0 auto', maxWidth: '400px' }}>
         <TextField
-          label="Usuario"
+          label={t('usuario')}
           variant="outlined"
           fullWidth
           value={username}
@@ -63,7 +65,7 @@ const RegisterPage = () => {
           sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Email"
+          label={t('correo-electronico')}
           variant="outlined"
           fullWidth
           value={email}
@@ -73,7 +75,7 @@ const RegisterPage = () => {
           sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Contraseña"
+          label={t('contrasena')}
           variant="outlined"
           type="password"
           fullWidth
@@ -84,7 +86,7 @@ const RegisterPage = () => {
           sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Confirmar contraseña"
+          label={t('confirmar-contrasena')}
           variant="outlined"
           type="password"
           fullWidth
@@ -110,15 +112,15 @@ const RegisterPage = () => {
             onClick={handleRegister}
             fullWidth
           >
-            Aceptar
+            {t('aceptar')}
           </Button>
           <Typography variant="body1">
             <Box sx={{ marginRight: 2, display: 'inline-block' }}>
-              ¿Ya tienes cuenta?
+              {t('ya-tienes-cuenta')}
             </Box>
             <Link to="/login">
               <Button variant="contained" color="secondary" size="small">
-                Iniciar sesión
+                {t('iniciar-sesion')}
               </Button>
             </Link>
           </Typography>

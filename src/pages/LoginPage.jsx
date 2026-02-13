@@ -6,6 +6,7 @@ import PageHeader from '../components/PageHeader';
 import NavigationButton from '../components/navigation-button';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppContext';
+import { useI18n } from '../context/I18nContext';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('jorge0481rd');
@@ -13,6 +14,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
 
   const { isAuthenticated, login } = useAppContext();
+  const { t } = useI18n();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,9 +27,7 @@ const LoginPage = () => {
 
       navigate(returnUrl);
     } catch (error) {
-      setError(
-        'Hubo un error en la autenticacion. Revise las credenciales e intente de nuevo.'
-      );
+      setError(t('error-autenticacion'));
       console.log(error);
     }
   };
@@ -46,10 +46,10 @@ const LoginPage = () => {
           }}
         >
           <Typography variant="h4" gutterBottom sx={{ marginTop: 4 }}>
-            ¡Hola, {username}!
+            {t('hola-usuario', { username })}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            ¡Bienvenido a nuestra tienda!
+            {t('bienvenido-a-nuestra-tienda')}
           </Typography>
           <Box
             sx={{
@@ -67,7 +67,7 @@ const LoginPage = () => {
               to="/products"
               fullWidth
             >
-              Ir a Productos
+              {t('ir-a-productos')}
             </Button>
           </Box>
         </Box>
@@ -76,14 +76,14 @@ const LoginPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Iniciar sesión">
+      <PageHeader title={t('iniciar-sesion')}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-          <NavigationButton href="/products" text="Productos ►" />
+          <NavigationButton href="/products" text={t('productos-link')} />
         </Box>
       </PageHeader>
       <Box sx={{ margin: '0 auto', maxWidth: '400px' }}>
         <TextField
-          label="Usuario"
+          label={t('usuario')}
           variant="outlined"
           fullWidth
           value={username}
@@ -96,7 +96,7 @@ const LoginPage = () => {
           sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Password"
+          label={t('contrasena')}
           variant="outlined"
           type="password"
           fullWidth
@@ -120,7 +120,7 @@ const LoginPage = () => {
             onClick={() => handleLogin(username, password)}
             fullWidth
           >
-            Aceptar
+            {t('aceptar')}
           </Button>
           <Box>
             <Typography sx={{ marginRight: 2, display: 'inline-block' }}>
@@ -128,7 +128,7 @@ const LoginPage = () => {
             </Typography>
             <Link to="/register">
               <Button variant="contained" color="secondary" size="small">
-                Registrate
+                {t('registro')}
               </Button>
             </Link>
           </Box>

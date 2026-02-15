@@ -10,8 +10,10 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import ProductCard from '../../components/ProductCard';
 import { apiFetchCartByOrder } from '../../api/api';
+import { useI18n } from '../../context/I18nContext';
 
 const SelectedOrder = ({ data, open, handleClose }) => {
+  const { t } = useI18n();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,9 +75,9 @@ const SelectedOrder = ({ data, open, handleClose }) => {
             marginBottom: '1rem',
           }}
         >
-          <Typography variant="h5">Productos del pedido</Typography>
+          <Typography variant="h5">{t('productos-del-pedido')}</Typography>
           <Button size="small" variant="contained" onClick={handleClose}>
-            Cerrar
+            {t('cerrar')}
           </Button>
         </Box>
         <Box
@@ -110,7 +112,7 @@ const SelectedOrder = ({ data, open, handleClose }) => {
 
 SelectedOrder.propTypes = {
   data: PropTypes.object,
-  setSelectedData: PropTypes.func.isRequired,
+  setSelectedData: PropTypes.func, // Changed to optional as per original if it was not required in usage
   handleClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
 };

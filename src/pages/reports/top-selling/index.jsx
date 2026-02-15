@@ -9,8 +9,10 @@ import { TextField } from '@mui/material';
 import DatePickerComponent from '../shared/DatePicker1';
 import { getFromDate } from '../../../utils/getFromDate';
 import useDeviceType from '../../../utils/isMobile';
+import { useI18n } from '../../../context/I18nContext';
 
 const TopSellingProductsReportPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [topSellingProductsData, setTopSellingProductsData] = useState([]);
   const [date_start, setDate_start] = useState('2024-01-01');
@@ -19,7 +21,7 @@ const TopSellingProductsReportPage = () => {
   );
   const [amount_records, setAmount_records] = useState(10);
   const isMobile = useDeviceType().isMobile;
-  const columnDefsTopSelling = getColumnDefsTopSelling(isMobile);
+  const columnDefsTopSelling = getColumnDefsTopSelling(isMobile, t);
 
   const getTopSelling = async () => {
     setIsLoading(true);
@@ -50,7 +52,7 @@ const TopSellingProductsReportPage = () => {
   return (
     <PageContainer sx={{ backgroundColor: '#eeeeee' }}>
       <PageHeader
-        title="Reporte de Productos Más Vendidos"
+        title={t('reporte-productos-mas-vendidos') || "Reporte de Productos Más Vendidos"}
         isLoading={isLoading}
       ></PageHeader>
       <Box
@@ -71,7 +73,7 @@ const TopSellingProductsReportPage = () => {
         />
 
         <TextField
-          label="Cantidad de Registros"
+          label={t('cantidad-registros')}
           type="number"
           value={amount_records}
           onChange={(e) => setAmount_records(e.target.value)}

@@ -59,13 +59,13 @@ const ContactUsPage = () => {
               <WhatsAppIcon /> 809-688-4040
             </Typography>
           </ContactCard>
-          <ContactCard Icon={LocationOnIcon} title="email">
+          <ContactCard Icon={LocationOnIcon} title={t('contacto')}>
             <Typography variant="body1" textAlign={'center'}>
               Calle J #4, Matahambre, La Feria III, Santo Domingo, D. N., Rep.
               Dom.
             </Typography>
           </ContactCard>
-          <ContactCard Icon={EmailIcon} title="email">
+          <ContactCard Icon={EmailIcon} title={t('correo-electronico')}>
             <Typography variant="body1">
               <a href="mailto:info@vekyrd.com">info@vekyrd.com</a>
             </Typography>

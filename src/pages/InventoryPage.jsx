@@ -5,14 +5,16 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiFetchInventory } from '../api/api';
 import InventoryCard from '../components/InventoryCard';
 import PageContainer from '../components/PageContainer';
 import PageHeader from '../components/PageHeader';
 import NavigationButton from '../components/navigation-button';
+import { useI18n } from '../context/I18nContext';
 
 const InventoryPage = () => {
+  const { t } = useI18n();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,23 +38,23 @@ const InventoryPage = () => {
         const response = await apiFetchInventory();
         setProducts(response.data);
       } catch (err) {
-        setError('Fallo al cargar el inventario.');
+        setError(t('fallo-al-cargar-inventario'));
         console.log(err);
       } finally {
         setLoading(false);
       }
     };
     fetchInventory();
-  }, [featchDataCount]);
+  }, [featchDataCount, t]);
 
   return (
     <PageContainer>
       <PageHeader
-        title="Inventario"
+        title={t('inventario')}
         isLoading={loading}
-        isLoadingText="Cargando inventario..."
+        isLoadingText={t('inventario-loading')}
       >
-        <NavigationButton href="/home" text="Inicio ►" />
+        <NavigationButton href="/home" text={t('inicio') + ' ►'} />
       </PageHeader>
       <Box
         sx={{
@@ -64,7 +66,7 @@ const InventoryPage = () => {
       >
         <TextField
           id="search"
-          label="Buscar producto"
+          label={t('buscar-producto')}
           variant="outlined"
           fullWidth
           value={search}
@@ -88,7 +90,7 @@ const InventoryPage = () => {
                   }
                 />
               }
-              label={`En stock (${products.filter(p => p.stock > 0).length})`}
+              label={`${t('en-stock')} (${products.filter(p => p.stock > 0).length})`}
             />
             <FormControlLabel
               control={
@@ -104,7 +106,7 @@ const InventoryPage = () => {
                   }
                 />
               }
-              label={`Agotado (${products.filter(p => p.stock === 0).length})`}
+              label={`${t('agotado')} (${products.filter(p => p.stock === 0).length})`}
             />
             <FormControlLabel
               control={
@@ -120,7 +122,7 @@ const InventoryPage = () => {
                   }
                 />
               }
-              label={`Quedan pocos (${products.filter(p => p.stock < 10).length})`}
+              label={`${t('quedan-pocos')} (${products.filter(p => p.stock < 10).length})`}
             />
             <FormControlLabel
               control={
@@ -133,7 +135,7 @@ const InventoryPage = () => {
                   }
                 />
               }
-              label={`Activo (${products.filter(p => p.active).length})`}
+              label={`${t('activo')} (${products.filter(p => p.active).length})`}
             />
           </Box>
 
@@ -142,7 +144,7 @@ const InventoryPage = () => {
             <TextField
               sx={{ width: 150 }}
               size='small'
-              label="Precio mínimo"
+              label={t('precio-minimo')}
               variant="outlined"
               type="number"
               value={priceRange[0]}
@@ -153,7 +155,7 @@ const InventoryPage = () => {
             <TextField
               sx={{ width: 150 }}
               size='small'
-              label="Precio máximo"
+              label={t('precio-maximo')}
               variant="outlined"
               type="number"
               value={priceRange[1]}
@@ -173,7 +175,7 @@ const InventoryPage = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography color="error">{error}</Typography>
             <Typography color="primary" variant="subtitle">
-              Asegúrese de que tiene los permisos necesarios.
+              {t('permisos-necesarios')}
             </Typography>
           </Box>
         )}

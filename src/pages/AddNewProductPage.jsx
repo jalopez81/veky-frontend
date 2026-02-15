@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PageContainer from '../components/PageContainer';
 import PageHeader from '../components/PageHeader';
 import { apiCreateProduct, uploadProductImages } from '../api/api';
+import { useI18n } from '../context/I18nContext';
 
 const validateProductData = (productData) => {
 	const {
@@ -44,6 +45,7 @@ const validateProductData = (productData) => {
 };
 
 const AddProductPage = () => {
+	const { t } = useI18n();
 	const [editing, setEditing] = useState(true);
 	const [productData, setProductData] = useState({
 		name: 'DUMMY PRODUCT 1',
@@ -117,7 +119,7 @@ const AddProductPage = () => {
 			const response = await apiCreateProduct(data);
 			if (response.status === 201) {
 				setEditing(false);
-				setSuccess('Producto creado exitosamente');
+				setSuccess(t('producto-creado-exitosamente'));
 			}
 
 		} catch (error) {
@@ -132,11 +134,11 @@ const AddProductPage = () => {
 
 	return (
 		<PageContainer>
-			<PageHeader title="Agregar Producto"></PageHeader>
+			<PageHeader title={t('agregar-producto')}></PageHeader>
 
 			<Box sx={{ margin: '0 auto', maxWidth: '600px' }}>
 				<TextField
-					label="Nombre del Producto"
+					label={t('nombre-del-producto')}
 					variant="outlined"
 					fullWidth
 					name="name"
@@ -145,7 +147,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="SKU"
+					label={t('sku')}
 					variant="outlined"
 					fullWidth
 					name="sku"
@@ -154,7 +156,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Categoría"
+					label={t('categoria')}
 					variant="outlined"
 					fullWidth
 					name="category"
@@ -163,7 +165,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Descripción Corta"
+					label={t('descripcion-corta')}
 					variant="outlined"
 					fullWidth
 					name="description"
@@ -172,7 +174,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Descripción Larga"
+					label={t('descripcion-larga')}
 					variant="outlined"
 					fullWidth
 					name="description_large"
@@ -183,7 +185,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Precio"
+					label={t('precio')}
 					variant="outlined"
 					fullWidth
 					name="price"
@@ -193,7 +195,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Stock"
+					label={t('stock')}
 					variant="outlined"
 					fullWidth
 					name="stock"
@@ -203,7 +205,7 @@ const AddProductPage = () => {
 					sx={{ marginBottom: 2 }}
 				/>
 				<TextField
-					label="Rating Promedio"
+					label={t('rating-promedio')}
 					variant="outlined"
 					fullWidth
 					name="average_rating"
@@ -348,14 +350,14 @@ const AddProductPage = () => {
 							onClick={() => handleCreateProduct(productData)}
 							disabled={!isFormValid}
 						>
-							Guardar
+							{t('guardar')}
 						</Button>
 						<Button
 							variant="outlined"
 							color="secondary"
 							onClick={() => setEditing(false)}
 						>
-							Cancelar
+							{t('cancelar')}
 						</Button>
 					</Box>
 					<Box sx={{ display: editing ? 'none' : 'flex' }}>
@@ -364,7 +366,7 @@ const AddProductPage = () => {
 							color="primary"
 							onClick={resetProductData}
 						>
-							Nuevo Producto
+							{t('nuevo-producto')}
 						</Button>
 					</Box>
 				</Box>

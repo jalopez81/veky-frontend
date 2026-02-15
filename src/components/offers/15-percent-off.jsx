@@ -1,9 +1,11 @@
 import { Box, Button } from '@mui/material';
 import { useAppContext } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
+import { useI18n } from '../../context/I18nContext';
 
 const OfferFiftyPercentOff = () => {
   const { isAuthenticated } = useAppContext();
+  const { t } = useI18n();
   return (
     <Box
       sx={{
@@ -33,7 +35,7 @@ const OfferFiftyPercentOff = () => {
           border: 'solid 1px white',
         }}
       >
-        {isAuthenticated ? 'Ver productos' : 'Registrate para ver productos'}
+        {isAuthenticated ? t('ver-productos') : t('registrate-para-ver-productos')}
       </Button>
     </Box>
   );

@@ -48,7 +48,7 @@ const CartPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Carrito" isLoading={isLoading}>
+      <PageHeader title={t('carrito')} isLoading={isLoading}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between' }}>
           <Button
             component={Link}
@@ -56,7 +56,7 @@ const CartPage = () => {
             variant="contained"
             to="/products"
           >
-            ◄ Productos
+            {t('volver-a-productos')}
           </Button>
           {cart.length > 0 && (
             <Button
@@ -65,7 +65,7 @@ const CartPage = () => {
               variant="contained"
               to="/orders"
             >
-              Pago ►
+              {t('pago')}
             </Button>
           )}
         </Box>

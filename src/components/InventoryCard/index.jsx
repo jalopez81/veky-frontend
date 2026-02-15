@@ -14,6 +14,7 @@ import { updateInventory } from '../../helpers/productHelpers';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { apiChangeActiveStatus } from '../../api/api';
+import { useI18n } from '../../context/I18nContext';
 
 const classes = {
 	container: {
@@ -64,6 +65,7 @@ const classes = {
 };
 
 const InventoryCard = ({ product }) => {
+	const { t } = useI18n();
 	const [stock, setStock] = useState(0);
 	const [price, setPrice] = useState(10);
 	const [disableSave, setDisableSave] = useState(true);
@@ -115,34 +117,34 @@ const InventoryCard = ({ product }) => {
 				variant="body1"
 				sx={{ margin: 2, textAlign: 'center', fontWeight: 700 }}
 			>
-				{!activeStatus && 'Desactivado'}
+				{!activeStatus && t('desactivado')}
 			</Typography>
 			{activeStatus && (
 				<Box sx={classes.info}>
 					<Typography variant="body1">
-						En stock:
+						{t('en-stock')}:
 						{product.stock > 0 ? (
 							product.stock
 						) : (
-							<Box sx={{ color: 'red', display: 'inline' }}>Agotado</Box>
+							<Box sx={{ color: 'red', display: 'inline' }}>{t('agotado')}</Box>
 						)}
 					</Typography>
-					<Typography variant="body2">Precio: ${product.price}</Typography>
+					<Typography variant="body2">{t('precio')}: ${product.price}</Typography>
 				</Box>
 			)}
 			<Typography variant="body1">
-				<Box sx={{ color: 'orange', display: 'inline', margin: '1rem', opacity: (stock > 0) && (stock < 10) ? 1 : 0 }}>Quedan pocos</Box>
+				<Box sx={{ color: 'orange', display: 'inline', margin: '1rem', opacity: (stock > 0) && (stock < 10) ? 1 : 0 }}>{t('quedan-pocos')}</Box>
 			</Typography>
 			<Box sx={classes.actions}>
 				<TextField
-					label="cambiar precio"
+					label={t('cambiar-precio')}
 					variant="outlined"
 					value={price}
 					onChange={onChangePrice}
 					sx={{ marginTop: 1 }}
 				/>
 				<TextField
-					label="cambiar stock"
+					label={t('cambiar-stock')}
 					variant="outlined"
 					type="number"
 					value={stock}
@@ -158,7 +160,7 @@ const InventoryCard = ({ product }) => {
 								sx={{ ...classes.actionsRowBtn, color: 'red' }}
 								onClick={() => setOpenActiveStatusDialog(true)}
 							>
-								Desactivar
+								{t('desactivar')}
 							</Button>
 							<Button
 								variant="contained"
@@ -168,7 +170,7 @@ const InventoryCard = ({ product }) => {
 								onClick={() => handleClick(product.id, stock, price)}
 								disabled={disableSave}
 							>
-								Guardar cambios
+								{t('guardar-cambios')}
 							</Button>
 						</>
 					)}
@@ -183,24 +185,24 @@ const InventoryCard = ({ product }) => {
 							}}
 							onClick={() => setOpenActiveStatusDialog(true)}
 						>
-							Activar
+							{t('activar')}
 						</Button>
 					)}
 				</Stack>
 				{/* confirmation dialog to remove product */}
 				<Dialog onClose={null} open={openActiveStatusDialog}>
-					<DialogTitle>Desactivar producto</DialogTitle>
+					<DialogTitle>{activeStatus ? t('desactivar-producto') : t('activar-producto')}</DialogTitle>
 					<DialogContent>
 						<Typography variant="body1" sx={{ marginBottom: 2 }}>
-							¿Estás seguro de que deseas <span style={{ color: 'red', fontWeight: 'bold' }}>{activeStatus ? 'desactivar' : 'activar'}</span> este producto?
+							{t('seguro-deseas', { action: activeStatus ? t('desactivar').toLowerCase() : t('activar').toLowerCase() })}
 						</Typography>
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={() => setOpenActiveStatusDialog(false)} color="primary">
-							Cancelar
+							{t('cancelar')}
 						</Button>
 						<Button onClick={() => toggleActiveStatus(!activeStatus)} color="primary">
-							Sí
+							{t('si')}
 						</Button>
 					</DialogActions>
 				</Dialog>

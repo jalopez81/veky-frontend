@@ -1,8 +1,10 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useI18n } from '../../context/I18nContext';
 
 const HomeHeader = () => {
+	const { t } = useI18n();
 	useEffect(() => {
 		const images = document.querySelectorAll('.banner-image');
 		const image1 = images[1];
@@ -107,7 +109,7 @@ const HomeHeader = () => {
 					padding: "6px 24px",
 					borderRadius: "20px",
 				}}
-			>TU RINCÓN DE BELLEZA EN LÍNEA</Typography>
+			>{t('home-header-slogan')}</Typography>
 
 			<Typography
 				variant="h5"
@@ -118,7 +120,7 @@ const HomeHeader = () => {
 					zIndex: 10,
 				}}
 			>
-				Descubre los mejores productos para el cuidado de tu cabello.
+				{t('home-header-desc')}
 			</Typography>
 			<Button
 				variant="contained"
@@ -128,7 +130,7 @@ const HomeHeader = () => {
 				component={Link}
 				to="/products"
 			>
-				Ver Productos
+				{t('ver-productos')}
 			</Button>
 		</Box>
 	);

@@ -102,7 +102,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            {t('telefono')} (opcional)
+                            {t('telefono')} ({t('opcional')})
                         </Typography>
                     }
                     name="phone"
@@ -117,7 +117,7 @@ const Form = () => {
                         <Typography
                             sx={{ background: '#ffffff', padding: 0.5, borderRadius: 1 }}
                         >
-                            {t('detalles-adicionales')} (opcional)
+                            {t('detalles-adicionales')} ({t('opcional')})
                         </Typography>
                     }
                     name="additionalDetails"
@@ -172,7 +172,7 @@ const Form = () => {
                             setSuccessMessage('');
                         }}
                     >
-                        Limpiar
+                        {t('limpiar')}
                     </Button>
                     <Button
                         type="submit"
@@ -181,7 +181,7 @@ const Form = () => {
                         disabled={!name || !email || !message}
                         onClick={handleSubmit}
                     >
-                        Enviar
+                        {t('enviar')}
                     </Button>
                 </Box>
             </form>

@@ -10,6 +10,7 @@ import PictureCarrousel from '../components/PictureCarrousel';
 import randomlyFormatParagraph from '../helpers/randomlyFormatParragraph';
 import Reviews from '../components/Reviews';
 import NavigationButton from '../components/navigation-button';
+import { useI18n } from '../context/I18nContext';
 
 const ProductDetailPage = () => {
 	const { productId } = useParams();
@@ -19,6 +20,7 @@ const ProductDetailPage = () => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const maxTextLength = 350;
 	const [formattedDescription, setFormattedDescription] = useState(null);
+	const { t } = useI18n();
 
 	useEffect(() => {
 		if (product) {
@@ -40,13 +42,13 @@ const ProductDetailPage = () => {
 				const productData = await getProductDetails(productId);
 				setProduct(productData);
 			} catch (error) {
-				setError('Error loading product details.');
+				setError(t('error-detalles-producto'));
 				console.log('error.message', error.message);
 			}
 		};
 
 		fetchProductDetails();
-	}, [productId]);
+	}, [productId, t]);
 
 	useEffect(() => {
 		const cart = getCartFromLocalStorage();
@@ -61,9 +63,9 @@ const ProductDetailPage = () => {
 			<PageHeader
 				title={(product && product.name) || ''}
 				isLoading={!product}
-				isLoadingText="Cargando productos..."
+				isLoadingText={t('cargando-productos')}
 			>
-				<NavigationButton href="/products" text="◄ Productos" justifyContent='flex-start' />
+				<NavigationButton href="/products" text={t('volver-a-productos')} justifyContent='flex-start' />
 			</PageHeader>
 
 			{product && (
@@ -87,7 +89,7 @@ const ProductDetailPage = () => {
 							}}
 						>
 							<Button variant="text" onClick={() => setIsExpanded(!isExpanded)}>
-								{isExpanded ? 'Ver menos' : 'Ver más'}
+								{isExpanded ? t('ver-menos') : t('ver-mas')}
 							</Button>
 						</Box>
 					</Box>

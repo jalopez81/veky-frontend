@@ -18,8 +18,10 @@ import { validatePaymentCardForm } from '../helpers/validatePaymentCardForm';
 import { getCartFromLocalStorage } from '../helpers/cartHelpers';
 import { getFromDate } from '../utils/getFromDate';
 import NavigationButton from '../components/navigation-button';
+import { useI18n } from '../context/I18nContext';
 
 const OrderPage = () => {
+  const { t } = useI18n();
   const [orderHash, setOrderHash] = useState('');
   const [orderDetails, setOrderDetails] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
@@ -113,7 +115,9 @@ const OrderPage = () => {
 
   const handlePayment = async () => {
     setIsLoading(true);
-    if (!validatePaymentCardForm(cardDetails, setErrorMessage)) return;
+    if (!validatePaymentCardForm(cardDetails, (msg) => {
+      setErrorMessage(t(msg) || msg);
+    })) return;
 
     const cart = getCartFromLocalStorage();
 
@@ -129,12 +133,12 @@ const OrderPage = () => {
       if (paymentData.status === 'success') {
         setConfirmationHash(paymentData.confirmationHash);
         resetPurchase();
-        setSuccessMessage('Pago realizado con éxito.');
+        setSuccessMessage(t('pago-completado-exito') || 'Pago realizado con éxito.');
       } else {
-        setErrorMessage('El pago fue rechazado. Intente nuevamente.');
+        setErrorMessage(t('pago-rechazado') || 'El pago fue rechazado. Intente nuevamente.');
       }
     } catch (err) {
-      setErrorMessage('Hubo un error al procesar el pago. Intente nuevamente.');
+      setErrorMessage(t('error-procesar-pago') || 'Hubo un error al procesar el pago. Intente nuevamente.');
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -157,9 +161,9 @@ const OrderPage = () => {
         <PageHeader
           title=""
           isLoading={isLoading}
-          isLoadingText="Cargando..."
+          isLoadingText={t('cargando')}
         >
-          <NavigationButton href="/products" text="Productos ►" justifyContent="flex-end" />
+          <NavigationButton href="/products" text={`${t('productos')} ►`} justifyContent="flex-end" />
         </PageHeader>
         <Box
           sx={{
@@ -170,13 +174,13 @@ const OrderPage = () => {
           }}
         >
           <Typography variant="h4" gutterBottom>
-            Pago exitoso
+            {t('pago-exitoso')}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            ¡Gracias por su compra!
+            {t('gracias-por-su-compra')}
           </Typography>
           <Typography variant="body1">
-            Su codigo de confirmación es: <b>{confirmationHash}</b>
+            {t('codigo-confirmacion-es')} <b>{confirmationHash}</b>
           </Typography>
           <Box
             sx={{
@@ -194,7 +198,7 @@ const OrderPage = () => {
               to="/products"
               fullWidth
             >
-              Ver otros productos
+              {t('ver-otros-productos')}
             </Button>
           </Box>
         </Box>
@@ -206,14 +210,14 @@ const OrderPage = () => {
   return (
     <PageContainer>
       <PageHeader
-        title="Pago"
+        title={t('pago')}
         isLoading={isLoading}
-        isLoadingText="Cargando..."
+        isLoadingText={t('cargando')}
       >
         <Typography variant="body1" gutterBottom sx={{ textAlign: 'right' }}>
-          Pedido #: {orderHash}
+          {t('pedido-num')} {orderHash}
         </Typography>
-        <NavigationButton href="/cart" text="◄ Carrito" justifyContent="flex-start" />
+        <NavigationButton href="/cart" text={`◄ ${t('carrito')}`} justifyContent="flex-start" />
       </PageHeader>
       <Box
         id="payment-forms-container"
@@ -244,7 +248,7 @@ const OrderPage = () => {
           <TextField
             type="name"
             name="name"
-            placeholder="Nombre del cliente"
+            placeholder={t('nombre-y-apellido')}
             value={cardDetails.name}
             sx={{ background: 'white' }}
             onChange={handleInputChange}
@@ -253,7 +257,7 @@ const OrderPage = () => {
           <TextField
             type="number"
             name="number"
-            placeholder="Número de tarjeta"
+            placeholder={t('numero-tarjeta')}
             value={cardDetails.number}
             sx={{ background: 'white' }}
             onChange={handleInputChange}
@@ -262,7 +266,7 @@ const OrderPage = () => {
           <TextField
             type="expiry"
             name="expiry"
-            placeholder="Fecha de vencimiento"
+            placeholder={t('fecha-expiracion')}
             value={cardDetails.expiry}
             sx={{ background: 'white' }}
             onChange={handleInputChange}
@@ -290,9 +294,9 @@ const OrderPage = () => {
           }}
           noValidate
         >
-          <Typography variant="h6">Detalles de envío</Typography>
+          <Typography variant="h6">{t('detalles-envio')}</Typography>
           <TextField
-            label="Calle y número"
+            label={t('calle-y-numero')}
             name="address1"
             value={shippingDetails.address1}
             onChange={handleShippingInputChange}
@@ -300,7 +304,7 @@ const OrderPage = () => {
             fullWidth
           />
           <TextField
-            label="Sector"
+            label={t('sector')}
             name="address2"
             value={shippingDetails.address2}
             onChange={handleShippingInputChange}
@@ -308,7 +312,7 @@ const OrderPage = () => {
             fullWidth
           />
           <TextField
-            label="Ciudad"
+            label={t('ciudad')}
             name="city"
             value={shippingDetails.city}
             onChange={handleShippingInputChange}
@@ -316,7 +320,7 @@ const OrderPage = () => {
             fullWidth
           />
           <TextField
-            label="País"
+            label={t('pais')}
             name="country"
             value={shippingDetails.country}
             onChange={handleShippingInputChange}
@@ -329,10 +333,10 @@ const OrderPage = () => {
               <>
                 <CircularProgress color="#ffffff" size={20} />
                 &nbsp;
-                <span>Procesando...</span>
+                <span>{t('procesando')}</span>
               </>
             ) : (
-              'Pagar ahora'
+              t('pagar-ahora')
             )}
           </Button>
           {errorMessage && (

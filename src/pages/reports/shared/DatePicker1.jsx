@@ -2,6 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useI18n } from '../../../context/I18nContext';
 
 const DatePickerComponent = ({
   setDate_start,
@@ -10,6 +11,7 @@ const DatePickerComponent = ({
   date_end,
   updateFunc,
 }) => {
+  const { t } = useI18n();
   return (
     <Box
       sx={{
@@ -32,7 +34,7 @@ const DatePickerComponent = ({
           }}
           customInput={
             <TextField
-              label="Fecha inicio"
+              label={t('fecha-inicio')}
               variant="outlined"
               fullWidth
               value={date_start}
@@ -52,7 +54,7 @@ const DatePickerComponent = ({
           }}
           customInput={
             <TextField
-              label="Fecha fin"
+              label={t('fecha-fin')}
               variant="outlined"
               fullWidth
               value={date_end}
@@ -62,7 +64,7 @@ const DatePickerComponent = ({
         />
       </Box>
       <Button variant="contained" onClick={updateFunc}>
-        Actualizar
+        {t('actualizar')}
       </Button>
     </Box>
   );

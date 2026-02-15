@@ -124,7 +124,7 @@ const LoginPage = () => {
           </Button>
           <Box>
             <Typography sx={{ marginRight: 2, display: 'inline-block' }}>
-              ¿No tienes cuenta?
+              {t('no-tienes-cuenta')}
             </Typography>
             <Link to="/register">
               <Button variant="contained" color="secondary" size="small">

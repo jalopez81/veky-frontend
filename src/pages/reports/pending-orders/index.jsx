@@ -8,15 +8,17 @@ import CustomAgGrid from '../shared/CustomAgGrid';
 import { getColumnDefsPendingOrders } from './colDefs';
 import useDeviceType from '../../../utils/isMobile';
 import { getFromDate } from '../../../utils/getFromDate';
+import { useI18n } from '../../../context/I18nContext';
 
 const PendingOrdersReportPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [pendingOrdersData, setPendingOrdersData] = useState([]);
   const [date_start, setDate_start] = useState('2024-01-01');
   const [date_end, setDate_end] = useState('2024-12-31');
 
   const isMobile = useDeviceType().isMobile;
-  const colDefsPendingOrders = getColumnDefsPendingOrders(isMobile);
+  const colDefsPendingOrders = getColumnDefsPendingOrders(isMobile, t);
 
   const getPendingOrdersReport = async () => {
     setIsLoading(true);
@@ -42,7 +44,7 @@ const PendingOrdersReportPage = () => {
   return (
     <PageContainer>
       <PageHeader
-        title="Reporte de órdenes pendientes"
+        title={t('reporte-ordenes-pendientes')}
         isLoading={isLoading}
       ></PageHeader>
       <Box
@@ -72,7 +74,7 @@ const PendingOrdersReportPage = () => {
               variant="h6"
               sx={{ textAlign: 'center', width: '100%' }}
             >
-              Reporte de órdenes pendientes
+              {t('reporte-ordenes-pendientes')}
             </Typography>
             <Typography
               variant="body1"

@@ -56,7 +56,7 @@ const CartPage = () => {
             variant="contained"
             to="/products"
           >
-            {t('volver-a-productos')}
+            ◄ {t('volver-a-productos')}
           </Button>
           {cart.length > 0 && (
             <Button
@@ -65,7 +65,7 @@ const CartPage = () => {
               variant="contained"
               to="/orders"
             >
-              {t('pago')}
+              {t('pago')} ►
             </Button>
           )}
         </Box>

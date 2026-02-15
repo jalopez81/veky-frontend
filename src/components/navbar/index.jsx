@@ -23,9 +23,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ChecklistIcon from '@mui/icons-material/Checklist';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PersonIcon from '@mui/icons-material/Person';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
@@ -231,7 +231,7 @@ const Navbar = () => {
 						component={Link}
 						size="small"
 						to="/questionnare"
-						startIcon={<ChecklistIcon />}
+						startIcon={<AutoAwesomeIcon />}
 						sx={{ ...classes.desktopButton }}
 					>
 						{t('descubre')}
@@ -529,7 +529,7 @@ const Navbar = () => {
 						component={Link}
 						size="small"
 						to="/questionnare"
-						startIcon={<ChecklistIcon />}
+						startIcon={<AutoAwesomeIcon />}
 					>
 						{t('descubre')}
 					</Button>

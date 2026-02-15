@@ -2,6 +2,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../context/I18nContext';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const HomeHeader = () => {
 	const { t } = useI18n();
@@ -122,7 +123,8 @@ const HomeHeader = () => {
 			>
 				{t('home-header-desc')}
 			</Typography>
-			<Button
+			<Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+				<Button
 				variant="contained"
 				size="medium"
 				color="primary"
@@ -132,6 +134,19 @@ const HomeHeader = () => {
 			>
 				{t('ver-productos')}
 			</Button>
+			<Button
+				variant="contained"
+				size="medium"
+				color="primary"
+				sx={{ marginTop: 2, zIndex: 10 }}
+				component={Link}
+				to="/descubre"
+				startIcon={<AutoAwesomeIcon />}
+			>
+				
+				{t('descubre')}
+			</Button>
+			</Box>
 		</Box>
 	);
 };

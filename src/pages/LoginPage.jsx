@@ -78,7 +78,7 @@ const LoginPage = () => {
     <PageContainer>
       <PageHeader title={t('iniciar-sesion')}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-          <NavigationButton href="/products" text={t('productos-link')} />
+          <NavigationButton href="/products" text={t('productos-link') + ' ►'} />
         </Box>
       </PageHeader>
       <Box sx={{ margin: '0 auto', maxWidth: '400px' }}>

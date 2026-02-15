@@ -153,7 +153,7 @@ const ProductPage = () => {
 				isLoading={isLoading}
 				isLoadingText={t('cargando-productos')}
 			>
-				<NavigationButton href="/cart" text={t('carrito')} />
+				<NavigationButton href="/cart" text={t('carrito') + ' ►'} />
 			</PageHeader>
 
 			{/* Search box */}

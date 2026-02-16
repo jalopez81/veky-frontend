@@ -140,7 +140,7 @@ const HomeHeader = () => {
 				color="primary"
 				sx={{ marginTop: 2, zIndex: 10 }}
 				component={Link}
-				to="/descubre"
+				to="/questionnare"
 				startIcon={<AutoAwesomeIcon />}
 			>
 				

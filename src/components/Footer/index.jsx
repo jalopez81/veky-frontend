@@ -1,6 +1,8 @@
 import { Box, Container, Typography, Link, Grid } from '@mui/material';
+import { useI18n } from '../../context/I18nContext';
 
 const Footer = () => {
+  const { t } = useI18n();
   return (
     <Box
       component="footer"
@@ -23,29 +25,28 @@ const Footer = () => {
               VekyRD
             </Typography>
             <Typography variant="body2">
-              Productos para el cuidado del cabello. Inspira tu estilo con
-              nosotros.
+              {t('footer-tagline')}
             </Typography>
           </Grid>
 
           {/* Navigation Links */}
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" gutterBottom>
-              Enlaces útiles
+              {t('enlaces-utiles')}
             </Typography>
             <Box>
               <Link href="/products" color="inherit" underline="hover">
-                Productos
+                {t('productos')}
               </Link>
             </Box>
             <Box>
               <Link href="/cart" color="inherit" underline="hover">
-                Carrito
+                {t('carrito')}
               </Link>
             </Box>
             <Box>
               <Link href="/contactus" color="inherit" underline="hover">
-                Contacto
+                {t('contacto')}
               </Link>
             </Box>
           </Grid>
@@ -53,7 +54,7 @@ const Footer = () => {
           {/* Social Media */}
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" gutterBottom>
-              Síguenos
+              {t('siguenos')}
             </Typography>
             <Box>
               <Link
@@ -81,7 +82,7 @@ const Footer = () => {
         </Grid>
 
         <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
-          © {new Date().getFullYear()} VekyRD. Todos los derechos reservados.
+          © {new Date().getFullYear()} VekyRD. {t('todos-los-derechos-reservados')}
         </Typography>
       </Container>
     </Box>

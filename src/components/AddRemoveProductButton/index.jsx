@@ -3,6 +3,8 @@ import AddedToCartIcon from '../ProductCard/AddedToCartIcon';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../../context/AppContext';
 import { useEffect, useState } from 'react';
+import { useI18n } from '../../context/I18nContext';
+
 
 const AddRemoveProductButton = ({
   product,
@@ -13,6 +15,7 @@ const AddRemoveProductButton = ({
   const [isInCart, setIsInCart] = useState(false);
 
   const { addOrRemoveToCart } = useAppContext();
+  const { t } = useI18n();
 
   useEffect(() => {
     setIsInCart(isAlreadyIncart);
@@ -27,12 +30,12 @@ const AddRemoveProductButton = ({
   const getCaption = () => {
     if (buyAgain) {
       return isInCart ? (
-        'Quitar'
+        t('quitar')
       ) : (
         <span style={{ fontSize: '0.8rem' }}>Comprar de Nuevo</span>
       );
     }
-    return isInCart ? 'Quitar' : 'Añadir';
+    return isInCart ? t('quitar') : t('anadir');
   };
   return (
     <Box sx={{ position: 'relative', display: 'flex' }}>

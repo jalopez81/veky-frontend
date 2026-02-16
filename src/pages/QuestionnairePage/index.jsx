@@ -5,7 +5,7 @@ import {
 	Paper,
 	Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageContainer from '../../components/PageContainer';
 import PageHeader from '../../components/PageHeader';
 import ProductCardHorizontal from '../../components/ProductCard/ProductCardHorizontal';
@@ -14,8 +14,10 @@ import randomlyFormatParagraph from '../../helpers/randomlyFormatParragraph';
 import FormRadioButtons from './FormRadioButtons';
 import FormTextFields from './FormTextFields';
 import { apiPostQuestionnaire } from '../../api/api';
+import { useI18n } from '../../context/I18nContext';
 
 const QuestionnairePage = () => {
+	const { t, currentLanguage } = useI18n();
 	const [hideRecommendations, setHideRecommendations] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +28,7 @@ const QuestionnairePage = () => {
 	const [scalpCondition, setScalpCondition] = useState('saludable');
 	const [currentIssues, setCurrentIssues] = useState('resequedad por el calor');
 	const [goals, setGoals] = useState('quiero un spray para cuidarlo del calor');
+	const [language, setLanguage] = useState(currentLanguage);
 
 	const [recommendations, setRecommendations] = useState([]);
 	const [generalTips, setGeneralTips] = useState('');
@@ -41,6 +44,10 @@ const QuestionnairePage = () => {
 		'/img/happy-woman8.jpg',
 	];
 	const [generalTipsImageUrl, setGeneralTipsImageUrl] = useState(null);
+
+	useEffect(() => {
+		setLanguage(currentLanguage);
+	}, [currentLanguage]);
 
 	const getRandomImage = () => {
 		const urls = generalTipsUrlList;
@@ -65,6 +72,7 @@ const QuestionnairePage = () => {
 				scalpCondition,
 				currentIssues,
 				goals,
+				language
 			};
 
 			//api call
@@ -75,7 +83,7 @@ const QuestionnairePage = () => {
 			setGeneralTips(generalTips);
 			getRandomImage();
 		} catch (error) {
-			console.error('Error enviando respuestas:', error);
+			console.error(t('error-enviando-respuestas'), error);
 		} finally {
 			setHideRecommendations(false);
 			setIsLoading(false);
@@ -85,10 +93,10 @@ const QuestionnairePage = () => {
 	return (
 		<PageContainer>
 			<PageHeader
-				title="Asistente con Inteligencia Artificial de Belleza"
-				subtitle="¡Nuestro sistema inteligente analizará tu cabello para recomendaciones personalizadas!"
+				title={t('asistente-ia-belleza')}
+				subtitle={t('sistema-inteligente-analizara')}
 			>
-				<NavigationButton href="/home" text="Inicio ►" />
+				<NavigationButton href="/home" text={t('inicio') + ' ►'} />
 			</PageHeader>
 
 			<FormRadioButtons
@@ -119,7 +127,7 @@ const QuestionnairePage = () => {
 					onClick={handleSubmit}
 					disabled={isLoading}
 				>
-					Enviar Respuestas
+					{t('enviar-respuestas')}
 				</Button>
 			</Box>
 
@@ -138,7 +146,7 @@ const QuestionnairePage = () => {
 					transform: `translateY(${isLoading ? 100 : -300}px)`,
 				}}
 			>
-				Buscando resultados ...
+				{t('buscando-resultados')}
 				<CircularProgress />
 			</Typography>
 
@@ -173,7 +181,7 @@ const QuestionnairePage = () => {
 						{generalTipsImageUrl && (
 							<img
 								src={generalTipsImageUrl}
-								alt="happy woman"
+								alt={t('mujer-feliz-alt')}
 								style={{ maxWidth: '375px', height: 'auto' }}
 							/>
 						)}

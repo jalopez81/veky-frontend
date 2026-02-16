@@ -15,13 +15,15 @@ import PageHeader from '../components/PageHeader';
 import NavigationButton from '../components/navigation-button';
 import { ROLES } from '../constants';
 import SearchBox from '../components/SearchBox';
+import { useI18n } from '../context/I18nContext';
 
 const UserRolesPage = () => {
+  const { t } = useI18n();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
-  const [confirmationMessage, setConfirmationMessage] = useState(true);
+  const [confirmationMessage, setConfirmationMessage] = useState(false);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -92,24 +94,24 @@ const UserRolesPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Permisos de Usuarios" isLoading={loading}>
-        <NavigationButton href="/home" text="Inicio ►" />
+      <PageHeader title={t('permisos-de-usuarios')} isLoading={loading}>
+        <NavigationButton href="/home" text={t('inicio') + ' ►'} />
       </PageHeader>
       <SearchBox
         value={search}
         onChange={handleSearchChange}
-        label="Buscar usuario"
+        label={t('buscar-usuario')}
         filterOptions={[
-          { value: 'all', label: 'Todos' },
-          { value: 'admin', label: 'Administradores' },
-          { value: 'moderator', label: 'Moderadores' },
-          { value: 'customer', label: 'Clientes' },
+          { value: 'all', label: t('todos') },
+          { value: 'admin', label: t('administradores') },
+          { value: 'moderator', label: t('moderadores') },
+          { value: 'customer', label: t('clientes') },
         ]}
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
         maxWidth="400px"
         margin="1rem auto 4rem"
-        placeholder="Buscar usuario..."
+        placeholder={t('buscar-usuario-placeholder')}
       />
       <Box
         className="urp-divider"
@@ -129,17 +131,17 @@ const UserRolesPage = () => {
           onClick={() => handleSaveChanges(users)}
           sx={{ margin: '1rem 0' }}
         >
-          Guardar Cambios
+          {t('guardar-cambios')}
         </Button>
         {confirmationMessage && (
           <Typography color="success">
-            Cambios guardados correctamente.
+            {t('cambios-guardados')}
           </Typography>
         )}
       </Box>
       <Box sx={{ padding: 2 }}>
         {loading ? (
-          <Typography>Cargando...</Typography>
+          <Typography>{t('loading')}</Typography>
         ) : (
           <Box
             sx={{
@@ -162,7 +164,7 @@ const UserRolesPage = () => {
                         }
                       />
                     }
-                    label="Admin"
+                    label={t('admin')}
                   />
                   <FormControlLabel
                     control={
@@ -173,7 +175,7 @@ const UserRolesPage = () => {
                         }
                       />
                     }
-                    label="Moderador"
+                    label={t('moderador')}
                   />
                   <FormControlLabel
                     control={
@@ -184,7 +186,7 @@ const UserRolesPage = () => {
                         }
                       />
                     }
-                    label="Cliente"
+                    label={t('cliente')}
                   />
                 </CardContent>
               </Card>

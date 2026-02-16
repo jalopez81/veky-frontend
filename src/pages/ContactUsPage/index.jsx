@@ -7,8 +7,10 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Box, Stack, Typography } from '@mui/material';
 import ContactCard from '../../components/shared/contactus/contact-card';
 import Form from './Form';
+import { useI18n } from '../../context/I18nContext';
 
 const ContactUsPage = () => {
+  const { t } = useI18n();
   return (
     <Stack>
       <Box
@@ -16,11 +18,10 @@ const ContactUsPage = () => {
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <Typography variant="h3" gutterBottom>
-          Contáctanos
+          {t('contactanos')}
         </Typography>
         <Typography variant="body1" sx={{ marginBottom: 2 }}>
-          Si tienes alguna consulta, comentario o necesitas asistencia, no dudes
-          en escribirnos. Estamos aquí para ayudarte.
+          {t('si-tienes-alguna-consulta')}
         </Typography>
         <Box
           className="contact-info-cards"
@@ -34,7 +35,7 @@ const ContactUsPage = () => {
             zIndex: 1,
           }}
         >
-          <ContactCard Icon={LocalPhoneIcon} title="Teléfono">
+          <ContactCard Icon={LocalPhoneIcon} title={t('telefono')}>
             <Typography
               variant="body1"
               sx={{
@@ -58,13 +59,13 @@ const ContactUsPage = () => {
               <WhatsAppIcon /> 809-688-4040
             </Typography>
           </ContactCard>
-          <ContactCard Icon={LocationOnIcon} title="email">
+          <ContactCard Icon={LocationOnIcon} title={t('contacto')}>
             <Typography variant="body1" textAlign={'center'}>
               Calle J #4, Matahambre, La Feria III, Santo Domingo, D. N., Rep.
               Dom.
             </Typography>
           </ContactCard>
-          <ContactCard Icon={EmailIcon} title="email">
+          <ContactCard Icon={EmailIcon} title={t('correo-electronico')}>
             <Typography variant="body1">
               <a href="mailto:info@vekyrd.com">info@vekyrd.com</a>
             </Typography>
@@ -88,14 +89,14 @@ const ContactUsPage = () => {
           <ContactCard Icon={InstagramIcon} title="Instagram">
             <Typography variant="body1">
               <a href="https://www.instagram.com/vekyrd/?hl=es">
-                Visítanos en Instagram
+                {t('visitanos-en-instagram')}
               </a>
             </Typography>
           </ContactCard>
           <ContactCard Icon={FacebookIcon} title="Facebook">
             <Typography variant="body1">
               <a href="https://www.facebook.com/profile.php?id=100064147778470">
-                Visítanos en Facebook
+                {t('visitanos-en-facebook')}
               </a>
             </Typography>
           </ContactCard>

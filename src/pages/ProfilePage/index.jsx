@@ -16,8 +16,10 @@ import { getFromDate } from '../../utils/getFromDate';
 import InputMask from 'react-input-mask';
 import { isCardNumberValid, isExpirationDateValid } from './card-validation';
 import { formatCardNumber } from '../reports/shared/helpers';
+import { useI18n } from '../../context/I18nContext';
 
 const UserProfilePage = () => {
+  const { t } = useI18n();
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -65,7 +67,7 @@ const UserProfilePage = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching user profile:', error);
-      setErrorMessage('Fallo al cargar el perfil.');
+      setErrorMessage(t('error-cargar-perfil') || 'Fallo al cargar el perfil.');
       setLoading(false);
     }
   };
@@ -81,15 +83,15 @@ const UserProfilePage = () => {
     const newExpirationDate = `${year}-${month}-01T00:00:00Z`;
 
     if (
-      !isCardNumberValid(newCardNumber) ||
+      !isCardNumberValid(cardNumber) ||
       !isExpirationDateValid(expirationDate)
     ) {
       setErrorMessage(
-        'No se pudo guardar el Número de tarjeta o fecha de expiración por ser no válidos.'
+        t('error-tarjeta-invalida') || 'No se pudo guardar el Número de tarjeta o fecha de expiración por ser no válidos.'
       );
     }
     const saveCardNumber =
-      isCardNumberValid(newCardNumber) && isExpirationDateValid(expirationDate);
+      isCardNumberValid(cardNumber) && isExpirationDateValid(expirationDate);
 
     const updatedData = {
       first_name: firstName,
@@ -98,18 +100,18 @@ const UserProfilePage = () => {
       address,
       cvv: cvv,
       ...(saveCardNumber && {
-        card_number: newCardNumber,
+        card_number: cardNumber,
         expiration_date: newExpirationDate,
       }),
     };
 
     try {
       await apiUpdateUserProfile(updatedData);
-      setSuccessMessage('Perfil actualizado correctamente.');
+      setSuccessMessage(t('perfil-actualizado') || 'Perfil actualizado correctamente.');
       setErrorMessage('');
     } catch (error) {
       console.error('Error updating profile:', error);
-      setErrorMessage('Failed to update profile.');
+      setErrorMessage(t('error-actualizar-perfil') || 'Failed to update profile.');
       setSuccessMessage('');
     }
   };
@@ -125,15 +127,15 @@ const UserProfilePage = () => {
     const month = expirationDate.split('/')[0];
     const year = expirationDate.split('/')[1];
     const newExpirationDate = `${year}-${month}-01T00:00:00Z`;
-    console.log({ expirationDate, month, year, newExpirationDate });
 
     if (
       !isCardNumberValid(cardNumber) ||
       !isExpirationDateValid(expirationDate)
     ) {
       setErrorMessage(
-        'No se pudo guardar el Número de tarjeta o fecha de expiración por ser no válidos.'
+        t('error-tarjeta-invalida') || 'No se pudo guardar el Número de tarjeta o fecha de expiración por ser no válidos.'
       );
+      return;
     }
 
     try {
@@ -146,9 +148,10 @@ const UserProfilePage = () => {
       });
       setHasCreditcard(true);
       setEditingCreditcard(false);
+      setSuccessMessage(t('tarjeta-guardada') || 'Tarjeta guardada con éxito.');
     } catch (error) {
       console.error('Error updating profile:', error);
-      setErrorMessage('Fallo al guardar la tarjeta de crédito.');
+      setErrorMessage(t('error-guardar-tarjeta') || 'Fallo al guardar la tarjeta de crédito.');
       setSuccessMessage('');
     }
   };
@@ -163,7 +166,7 @@ const UserProfilePage = () => {
       setCvv('');
     } catch (error) {
       console.error('Error updating profile:', error);
-      setErrorMessage('Fallo al eliminar la tarjeta de crédito.');
+      setErrorMessage(t('error-eliminar-tarjeta') || 'Fallo al eliminar la tarjeta de crédito.');
       setSuccessMessage('');
     }
   };
@@ -172,7 +175,7 @@ const UserProfilePage = () => {
     <PageContainer>
       <PageHeader title={username}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-          <NavigationButton href="/products" text="Productos ►" />
+          <NavigationButton href="/products" text={`${t('productos')} ►`} />
         </Box>
       </PageHeader>
       <Stack spacing={3} sx={{ alignItems: 'center' }}>
@@ -194,7 +197,7 @@ const UserProfilePage = () => {
             }}
           >
             <Typography variant="h4" gutterBottom>
-              Información de Perfil
+              {t('informacion-perfil')}
             </Typography>
 
             {errorMessage && (
@@ -211,7 +214,7 @@ const UserProfilePage = () => {
             {/* profile form  */}
             <Box>
               <TextField
-                label={<LabelBg>Usuario</LabelBg>}
+                label={<LabelBg>{t('usuario')}</LabelBg>}
                 disabled
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -220,7 +223,7 @@ const UserProfilePage = () => {
                 sx={{ marginBottom: 2, fontSize: '12px' }}
               />
               <TextField
-                label={<LabelBg>Nombre</LabelBg>}
+                label={<LabelBg>{t('nombre')}</LabelBg>}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 variant="outlined"
@@ -228,7 +231,7 @@ const UserProfilePage = () => {
                 sx={{ marginBottom: 2 }}
               />
               <TextField
-                label={<LabelBg>Apellido</LabelBg>}
+                label={<LabelBg>{t('apellido')}</LabelBg>}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 variant="outlined"
@@ -244,7 +247,7 @@ const UserProfilePage = () => {
               >
                 {() => (
                   <TextField
-                    label={<LabelBg>Teléfono</LabelBg>}
+                    label={<LabelBg>{t('telefono')}</LabelBg>}
                     variant="outlined"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -252,7 +255,7 @@ const UserProfilePage = () => {
                 )}
               </InputMask>
               <TextField
-                label={<LabelBg>Dirección</LabelBg>}
+                label={<LabelBg>{t('direccion')}</LabelBg>}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 variant="outlined"
@@ -273,7 +276,7 @@ const UserProfilePage = () => {
                 }}
               >
                 {/* credit card display */}
-                <Typography variant="h6" sx={{ margin: '1rem' }}>Tarjeta de crédito</Typography>
+                <Typography variant="h6" sx={{ margin: '1rem' }}>{t('tarjeta-credito')}</Typography>
                 {hasCreditcard && !editingCreditcard && (<>
                   <Typography
                     variant="caption"
@@ -287,14 +290,14 @@ const UserProfilePage = () => {
                     textAlign="left"
                     sx={{ width: '100%', fontSize: '1rem' }}
                   >
-                    Direccion: {billingAddress}
+                    {t('direccion')}: {billingAddress}
                   </Typography>
                   <Typography
                     variant="caption"
                     textAlign="left"
                     sx={{ width: '100%', fontSize: '1rem' }}
                   >
-                    Número: {cardNumber}
+                    {t('numero') || 'Número'}: {cardNumber}
                   </Typography>
 
                   <Typography
@@ -302,7 +305,7 @@ const UserProfilePage = () => {
                     textAlign="left"
                     sx={{ width: '100%', fontSize: '1rem' }}
                   >
-                    Expiración: {expirationDate}
+                    {t('expiracion')}: {expirationDate}
                   </Typography>
                   <Typography
                     variant="caption"
@@ -319,7 +322,7 @@ const UserProfilePage = () => {
                       sx={{ marginTop: 2, background: 'red' }}
                       onClick={() => removeCreditCard()}
                     >
-                      Eliminar
+                      {t('eliminar')}
                     </Button>
                     <Button
                       variant="contained"
@@ -328,28 +331,28 @@ const UserProfilePage = () => {
                       sx={{ marginTop: 2 }}
                       onClick={() => setEditingCreditcard(true)}
                     >
-                      Editar
+                      {t('editar')}
                     </Button>
                     <Button
                       variant="contained"
                       color="primary"
                       size="small"
                       sx={{ marginTop: 2 }}
-                      onClick={() => apiGetCreditCard()}
+                      onClick={() => getOneUser()}
                     >
-                      Actualizar
+                      {t('actualizar')}
                     </Button>
                   </Box>
                 </>)}
 
                 {/* credit card edit   */}
-                {!hasCreditcard && <>
+                {!hasCreditcard && !editingCreditcard && <>
                   <Typography
                     variant="h5"
                     textAlign="left"
                     sx={{ width: '100%' }}
                   >
-                    No tienes tarjeta de crédito
+                    {t('no-tienes-tarjeta')}
                   </Typography>
                   <Button
                     variant="contained"
@@ -357,20 +360,20 @@ const UserProfilePage = () => {
                     sx={{ marginTop: 2 }}
                     onClick={() => setEditingCreditcard(true)}
                   >
-                    Agregar tarjeta de crédito
+                    {t('agregar-tarjeta')}
                   </Button>
                 </>}
 
                 {editingCreditcard && (<Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <TextField
-                    label={<LabelBg>Nombre y apellido</LabelBg>}
+                    label={<LabelBg>{t('nombre-y-apellido')}</LabelBg>}
                     variant="outlined"
                     fullWidth
                     onChange={e => setCardHolderName(e.target.value)}
                     value={cardHolderName}
                   />
                   <TextField
-                    label={<LabelBg>Direccion</LabelBg>}
+                    label={<LabelBg>{t('direccion')}</LabelBg>}
                     variant="outlined"
                     fullWidth
                     onChange={e => setBillingAddress(e.target.value)}
@@ -385,7 +388,7 @@ const UserProfilePage = () => {
                   >
                     {() => (
                       <TextField
-                        label={<LabelBg>Número de tarjeta</LabelBg>}
+                        label={<LabelBg>{t('numero-tarjeta')}</LabelBg>}
                         variant="outlined"
                         fullWidth
                       />
@@ -398,7 +401,7 @@ const UserProfilePage = () => {
                   >
                     {() => (
                       <TextField
-                        label={<LabelBg>Fecha de Expiración</LabelBg>}
+                        label={<LabelBg>{t('fecha-expiracion')}</LabelBg>}
                         variant="outlined"
                         fullWidth
                       />
@@ -418,7 +421,7 @@ const UserProfilePage = () => {
                       sx={{ marginTop: 2, background: 'red' }}
                       onClick={() => setEditingCreditcard(false)}
                     >
-                      Cancelar
+                      {t('cancelar')}
                     </Button>
                     <Button
                       variant="contained"
@@ -428,12 +431,12 @@ const UserProfilePage = () => {
                         cardNumber,
                         expirationDate,
                         cvv,
-                        cardholderName: `${firstName} ${lastName}`,
+                        cardholderName,
                         billingAddress
                       })}
                       disabled={!isCardNumberValid(cardNumber) || !isExpirationDateValid(expirationDate)}
                     >
-                      Guardar tarjeta
+                      {t('guardar-tarjeta')}
                     </Button>
                   </Box>
                 </Box>)}
@@ -445,7 +448,7 @@ const UserProfilePage = () => {
                 sx={{ marginTop: "4rem" }}
                 onClick={handleSubmit}
               >
-                Guardar cambios
+                {t('guardar-cambios')}
               </Button>}
             </Box>
           </Box>

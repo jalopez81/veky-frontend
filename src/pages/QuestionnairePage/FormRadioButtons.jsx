@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
+import { useI18n } from '../../context/I18nContext';
 
 const classes = {
     radioGroup: {
@@ -30,6 +31,7 @@ const FormRadioButtons = memo(({
     mainConcern,
     setMainConcern
 }) => {
+    const { t } = useI18n();
     return (
         <Box
             sx={{
@@ -44,7 +46,7 @@ const FormRadioButtons = memo(({
         >
             {/* Tipo de cabello */}
             <Typography variant="h6" fontWeight={'bold'}>
-                1. ¿Cómo describirías tu tipo de cabello?
+                {t('pregunta-tipo-cabello')}
             </Typography>
             <FormControl component="fieldset">
                 <RadioGroup
@@ -52,28 +54,28 @@ const FormRadioButtons = memo(({
                     onChange={(e) => setHairType(e.target.value)}
                     sx={classes.radioGroup}
                 >
-                    <FormControlLabel value="liso" control={<Radio />} label="Liso" />
+                    <FormControlLabel value="liso" control={<Radio />} label={t('liso')} />
                     <FormControlLabel
                         value="ondulado"
                         control={<Radio />}
-                        label="Ondulado"
+                        label={t('ondulado')}
                     />
                     <FormControlLabel
                         value="rizado"
                         control={<Radio />}
-                        label="Rizado"
+                        label={t('rizado')}
                     />
                     <FormControlLabel
                         value="muyRizado"
                         control={<Radio />}
-                        label="Muy rizado"
+                        label={t('muy-rizado')}
                     />
                 </RadioGroup>
             </FormControl>
 
             {/* Longitud del cabello */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                2. ¿Qué tan largo es tu cabello?
+                {t('pregunta-longitud-cabello')}
             </Typography>
             <FormControl component="fieldset">
                 <RadioGroup
@@ -81,15 +83,15 @@ const FormRadioButtons = memo(({
                     value={hairLength}
                     onChange={(e) => setHairLength(e.target.value)}
                 >
-                    <FormControlLabel value="corto" control={<Radio />} label="Corto" />
-                    <FormControlLabel value="medio" control={<Radio />} label="Medio" />
-                    <FormControlLabel value="largo" control={<Radio />} label="Largo" />
+                    <FormControlLabel value="corto" control={<Radio />} label={t('corto')} />
+                    <FormControlLabel value="medio" control={<Radio />} label={t('medio')} />
+                    <FormControlLabel value="largo" control={<Radio />} label={t('largo')} />
                 </RadioGroup>
             </FormControl>
 
             {/* ¿Sueles teñir o tratar químicamente tu cabello? */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                3. ¿Sueles teñir o tratar químicamente tu cabello?
+                {t('pregunta-tenido-quimico')}
             </Typography>
             <FormControl component="fieldset">
                 <RadioGroup
@@ -100,24 +102,24 @@ const FormRadioButtons = memo(({
                     <FormControlLabel
                         value="Sí, frecuentemente"
                         control={<Radio />}
-                        label="Sí, frecuentemente"
+                        label={t('si-frecuentemente')}
                     />
                     <FormControlLabel
                         value="Ocasionalmente"
                         control={<Radio />}
-                        label="Ocasionalmente"
+                        label={t('ocasionalmente')}
                     />
                     <FormControlLabel
                         value="No, nunca"
                         control={<Radio />}
-                        label="No, nunca"
+                        label={t('no-nunca')}
                     />
                 </RadioGroup>
             </FormControl>
 
             {/* ¿Cuál es tu mayor preocupación relacionada con tu cabello? */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                4. ¿Cuál es tu mayor preocupación relacionada con tu cabello?
+                {t('pregunta-mayor-preocupacion')}
             </Typography>
             <FormControl component="fieldset">
                 <RadioGroup
@@ -128,23 +130,18 @@ const FormRadioButtons = memo(({
                     <FormControlLabel
                         value="Caída excesiva"
                         control={<Radio />}
-                        label="Caída excesiva"
+                        label={t('caida-excesiva')}
                     />
-                    <FormControlLabel value="Frizz" control={<Radio />} label="Frizz" />
+                    <FormControlLabel value="Frizz" control={<Radio />} label={t('frizz')} />
                     <FormControlLabel
                         value="Falta de volumen"
                         control={<Radio />}
-                        label="Falta de volumen"
+                        label={t('falta-de-volumen')}
                     />
                     <FormControlLabel
                         value="Daño por calor o tratamiento químico"
                         control={<Radio />}
-                        label="Daño por calor o tratamiento químico"
-                    />
-                    <FormControlLabel
-                        value="Falta de volumen"
-                        control={<Radio />}
-                        label="Falta de volumen"
+                        label={t('dano-por-calor')}
                     />
                 </RadioGroup>
             </FormControl>

@@ -7,6 +7,7 @@ import {
   FormControl,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useI18n } from '../../context/I18nContext';
 
 const SearchBox = ({
   value,
@@ -17,6 +18,7 @@ const SearchBox = ({
   onFilterChange,
   placeholder = 'Buscar...',
 }) => {
+  const { t } = useI18n();
   return (
     <Box
       sx={{
@@ -29,11 +31,11 @@ const SearchBox = ({
       {/* Filter */}
       {filterOptions.length > 0 && (
         <FormControl sx={{ marginBottom: '1rem', flex: 1 }}>
-          <InputLabel>Filtrar por</InputLabel>
+          <InputLabel>{t('filtrar-por')}</InputLabel>
           <Select
             value={selectedFilter}
             onChange={(e) => onFilterChange(e.target.value)}
-            label="Filtrar por"
+            label={t('filtrar-por')}
           >
             {filterOptions.map((option, index) => (
               <MenuItem key={index} value={option.value}>

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { postReview } from '../../helpers/reviewsHelpers';
 import PropTypes from 'prop-types';
 import RatingStarsSelector from './RatingStarsSelector';
+import { useI18n } from '../../context/I18nContext';
 
 const ReviewForm = ({
   productId,
@@ -10,6 +11,7 @@ const ReviewForm = ({
   setnewReviewCount,
   username,
 }) => {
+  const { t } = useI18n();
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +43,7 @@ const ReviewForm = ({
         }}
       >
         <Typography variant="h5" textAlign={'center'}>
-          {`¡Gracias, ${username}! Ya has enviado tu opinión sobre este producto.`}
+          {t('gracias-opinion', { username })}
         </Typography>
       </Box>
     );
@@ -58,11 +60,11 @@ const ReviewForm = ({
       }}
     >
       <Typography variant="h5" textAlign={'center'}>
-        Danos tu opinión
+        {t('danos-tu-opinion')}
       </Typography>
       <RatingStarsSelector setSelectedRating={setRating} />
       <TextField
-        label="Escribir comentario"
+        label={t('escribir-comentario')}
         multiline
         rows={4}
         value={comment}
@@ -74,7 +76,7 @@ const ReviewForm = ({
         variant="contained"
         disabled={isLoading || comment.length === 0}
       >
-        Enviar
+        {t('enviar')}
       </Button>
     </Box>
   );

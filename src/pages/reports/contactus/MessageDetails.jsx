@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { apiDeleteComment, apiSetCommentAsRead } from '../../../api/api';
+import { useI18n } from '../../../context/I18nContext';
 
 const MessageDetails = ({ msg, open, setOpen }) => {
+  const { t } = useI18n();
   const handleClose = () => {
     setOpen(false);
   };
@@ -41,7 +43,7 @@ const MessageDetails = ({ msg, open, setOpen }) => {
       }}
     >
       <Typography variant="body1" fontWeight="bold">
-        Nombre:
+        {t('nombre')}:
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: '2rem' }}>
         {msg.name}
@@ -55,9 +57,9 @@ const MessageDetails = ({ msg, open, setOpen }) => {
       </Typography>
 
       <Typography variant="body1" fontWeight="bold">
-        Mensaje
+        {t('mensaje')}
       </Typography>
-      <Typography variant="body1dy1" sx={{ marginBottom: '2rem' }}>
+      <Typography variant="body1" sx={{ marginBottom: '2rem' }}>
         {msg.message}
       </Typography>
 
@@ -74,13 +76,13 @@ const MessageDetails = ({ msg, open, setOpen }) => {
           sx={{ background: 'red' }}
           onClick={handleDelete}
         >
-          Borrar
+          {t('borrar')}
         </Button>
         <Button variant="contained" color="secondary" onClick={handleRead}>
-          Marcar como leído
+          {t('marcar-leido')}
         </Button>
         <Button variant="contained" color="primary" onClick={handleClose}>
-          Cerrar
+          {t('cerrar')}
         </Button>
       </Box>
     </Box>

@@ -1,6 +1,7 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box, Typography } from '@mui/material';
+import { useI18n } from '../../context/I18nContext';
 
 const containerStyle = {
   position: 'relative',
@@ -32,12 +33,13 @@ const textStyle = {
 };
 
 const AddedToCartIcon = () => {
+  const { t } = useI18n();
   return (
-    <Box sx={containerStyle} title="Añadido al carrito">
+    <Box sx={containerStyle} title={t('anadido-al-carrito')}>
       <CheckCircleIcon sx={checkStyle} />
       <ShoppingCartIcon sx={cartStyle} />
       <Typography variant="subtitle" sx={textStyle}>
-        Agregado
+        {t('agregado')}
       </Typography>
     </Box>
   );

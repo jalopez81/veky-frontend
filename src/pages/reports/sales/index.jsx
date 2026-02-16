@@ -19,8 +19,10 @@ import { summarizeCategories } from './helpers/summarizeCategories';
 import ChartSalesTrend from './ChartSalesTrend';
 import DatePickerComponent from '../shared/DatePicker1';
 import useDeviceType from '../../../utils/isMobile';
+import { useI18n } from '../../../context/I18nContext';
 
 const SalesReportPage = () => {
+  const { t } = useI18n();
   const [salesData, setSalesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [date_start, setDate_start] = useState('2024-01-01');
@@ -29,7 +31,7 @@ const SalesReportPage = () => {
   );
   const [categoriesSummary, setCategoriesSummary] = useState([]);
   const isMobile = useDeviceType().isMobile;
-  const columnDefs = getColumnDefs(isMobile);
+  const columnDefs = getColumnDefs(isMobile, t);
 
   const getSales = async () => {
     setIsLoading(true);
@@ -49,7 +51,7 @@ const SalesReportPage = () => {
   const trendTitle = (
     <Box>
       <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-        Ventas del mes
+        {t('ventas-del-mes')}
       </Typography>
       <Typography variant="body1" sx={{ textAlign: 'center', width: '100%' }}>
         {getFromDate(date_start).longDate} - {getFromDate(date_end).longDate}
@@ -70,7 +72,7 @@ const SalesReportPage = () => {
 
   return (
     <PageContainer sx={{ backgroundColor: '#eeeeee' }}>
-      <PageHeader title="Reporte de Ventas" isLoading={isLoading}></PageHeader>
+      <PageHeader title={t('reporte-de-ventas')} isLoading={isLoading}></PageHeader>
 
       {/* Date pickers */}
       <DatePickerComponent
@@ -90,7 +92,7 @@ const SalesReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Gráficos
+            {t('ver-ocultar-graficos')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -104,7 +106,7 @@ const SalesReportPage = () => {
           >
             <ChartCategory
               info={categoriesSummary}
-              title={`Ventas por categoría (${getFromDate(date_start).date} - ${
+              title={`${t('ventas-por-categoria')} (${getFromDate(date_start).date} - ${
                 getFromDate(date_end).date
               })`}
               sx={{
@@ -134,7 +136,7 @@ const SalesReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Tabla
+            {t('ver-ocultar-tabla')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>

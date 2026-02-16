@@ -1,8 +1,11 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useI18n } from '../../context/I18nContext';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const HomeHeader = () => {
+	const { t } = useI18n();
 	useEffect(() => {
 		const images = document.querySelectorAll('.banner-image');
 		const image1 = images[1];
@@ -107,7 +110,7 @@ const HomeHeader = () => {
 					padding: "6px 24px",
 					borderRadius: "20px",
 				}}
-			>TU RINCÓN DE BELLEZA EN LÍNEA</Typography>
+			>{t('home-header-slogan')}</Typography>
 
 			<Typography
 				variant="h5"
@@ -118,9 +121,10 @@ const HomeHeader = () => {
 					zIndex: 10,
 				}}
 			>
-				Descubre los mejores productos para el cuidado de tu cabello.
+				{t('home-header-desc')}
 			</Typography>
-			<Button
+			<Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+				<Button
 				variant="contained"
 				size="medium"
 				color="primary"
@@ -128,8 +132,21 @@ const HomeHeader = () => {
 				component={Link}
 				to="/products"
 			>
-				Ver Productos
+				{t('ver-productos')}
 			</Button>
+			<Button
+				variant="contained"
+				size="medium"
+				color="primary"
+				sx={{ marginTop: 2, zIndex: 10 }}
+				component={Link}
+				to="/questionnare"
+				startIcon={<AutoAwesomeIcon />}
+			>
+				
+				{t('descubre')}
+			</Button>
+			</Box>
 		</Box>
 	);
 };

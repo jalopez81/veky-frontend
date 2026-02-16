@@ -1,7 +1,9 @@
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useI18n } from '../../context/I18nContext';
 
 const OfferCrecimiento = () => {
+  const { t } = useI18n();
   return (
     <Box
       sx={{
@@ -32,7 +34,7 @@ const OfferCrecimiento = () => {
           color: 'white',
         }}
       >
-        Comprar
+        {t('comprar')}
       </Button>
     </Box>
   );

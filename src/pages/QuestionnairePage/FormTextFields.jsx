@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
+import { useI18n } from '../../context/I18nContext';
 
 const FormTextFields = memo(({
     scalpCondition,
@@ -15,6 +16,7 @@ const FormTextFields = memo(({
     setGoals
 
 }) => {
+    const { t } = useI18n();
     return (
         <Box
             sx={{
@@ -29,12 +31,12 @@ const FormTextFields = memo(({
         >
             {/* Condición del cuero cabelludo */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                5. ¿Cuál es la condición de tu cuero cabelludo?
+                {t('pregunta-condicion-cuero-cabelludo')}
             </Typography>
             <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Describe tu cuero cabelludo (ej. seco, graso, sensible...)"
+                placeholder={t('placeholder-cuero-cabelludo')}
                 value={scalpCondition}
                 sx={{ background: 'white' }}
                 onChange={(e) => setScalpCondition(e.target.value)}
@@ -42,12 +44,12 @@ const FormTextFields = memo(({
 
             {/* Problemas actuales */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                6. ¿Qué problemas específicos tiene tu cabello?
+                {t('pregunta-problemas-especificos')}
             </Typography>
             <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Ej. caída excesiva, frizz, daño químico..."
+                placeholder={t('placeholder-problemas')}
                 value={currentIssues}
                 sx={{ background: 'white' }}
                 onChange={(e) => setCurrentIssues(e.target.value)}
@@ -55,12 +57,12 @@ const FormTextFields = memo(({
 
             {/* Objetivos */}
             <Typography variant="h6" sx={{ marginTop: '3rem' }} fontWeight={'bold'}>
-                7. ¿Qué resultados esperas conseguir?
+                {t('pregunta-resultados-esperados')}
             </Typography>
             <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Ej. más hidratación, volumen, reparación..."
+                placeholder={t('placeholder-resultados')}
                 value={goals}
                 sx={{ background: 'white' }}
                 onChange={(e) => setGoals(e.target.value)}

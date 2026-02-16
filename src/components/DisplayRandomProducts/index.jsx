@@ -4,9 +4,12 @@ import { useEffect, useState } from 'react';
 import { apiFetchProducts } from '../../api/api';
 import NavigationButton from '../navigation-button';
 import ProductCard from '../ProductCard';
+import { useI18n } from '../../context/I18nContext';
 
 const DisplayRandomProducts = ({ quantity = 3 }) => {
   const [randomProducts, setRandomProducts] = useState([]);
+    const { t } = useI18n();
+  
 
   useEffect(() => {
     const getRandomProducts = async (quantity) => {
@@ -42,7 +45,7 @@ const DisplayRandomProducts = ({ quantity = 3 }) => {
       />
 
       <Typography variant="h5" textAlign="center">
-        Nuestros productos recomendados
+        {t('nuestros-productos-recomendados')}
       </Typography>
       <Box
         className="drp-random-products-container"
@@ -63,7 +66,7 @@ const DisplayRandomProducts = ({ quantity = 3 }) => {
         ))}
       </Box>
       <Box sx={{ margin: '0 auto' }}>
-        <NavigationButton href="/products" text="Ver todos los productos" />
+        <NavigationButton href="/products" text={t('ver-todos-los-productos')} />
       </Box>
     </Box>
   );

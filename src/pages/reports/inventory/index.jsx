@@ -19,15 +19,17 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useI18n } from '../../../context/I18nContext';
 
 const InvetoryReportPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const [inventoryHistoryData, setInventoryHistoryData] = useState([]);
 
   const isMobile = useDeviceType().isMobile;
-  const columnDefsInventory = getColumnDefsInventory(isMobile);
-  const columnDefsInventoryHistory = getColumnDefsInventoryHistory(isMobile);
+  const columnDefsInventory = getColumnDefsInventory(isMobile, t);
+  const columnDefsInventoryHistory = getColumnDefsInventoryHistory(isMobile, t);
 
   const getInventory = async () => {
     setIsLoading(true);
@@ -63,11 +65,11 @@ const InvetoryReportPage = () => {
   return (
     <PageContainer sx={{ backgroundColor: '#eeeeee' }}>
       <PageHeader
-        title="Reporte de Inventario"
+        title={t('reporte-de-inventario')}
         isLoading={isLoading}
       ></PageHeader>
       {/* refresh table */}
-      <Button onClick={getInventory}>Actualizar</Button>
+      <Button onClick={getInventory}>{t('actualizar')}</Button>
 
       {/* inventory */}
       <Accordion defaultExpanded sx={{ marginTop: 4 }}>
@@ -78,7 +80,7 @@ const InvetoryReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Inventario
+            {t('ver-ocultar-inventario')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -99,7 +101,7 @@ const InvetoryReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Historial de Inventario
+            {t('ver-ocultar-historial-inventario')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PageContainer from '../components/PageContainer';
 import PageHeader from '../components/PageHeader';
 import { useAppContext } from '../context/AppContext';
+import { useI18n } from '../context/I18nContext';
 
 import CartItem from '../components/CartItem';
 import {
@@ -19,6 +20,7 @@ const CartPage = () => {
   const [cart, setCart] = useState(getCartFromLocalStorage());
 
   const { updateOrderDetails, cartCount } = useAppContext();
+  const { t } = useI18n();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +48,7 @@ const CartPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Carrito" isLoading={isLoading}>
+      <PageHeader title={t('carrito')} isLoading={isLoading}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between' }}>
           <Button
             component={Link}
@@ -54,7 +56,7 @@ const CartPage = () => {
             variant="contained"
             to="/products"
           >
-            ◄ Productos
+            ◄ {t('volver-a-productos')}
           </Button>
           {cart.length > 0 && (
             <Button
@@ -63,7 +65,7 @@ const CartPage = () => {
               variant="contained"
               to="/orders"
             >
-              Pago ►
+              {t('pago')} ►
             </Button>
           )}
         </Box>
@@ -86,16 +88,16 @@ const CartPage = () => {
               transform: 'translateX(-25px)',
             }}
             src="/empty_cart.svg"
-            alt="Carrito vacío"
+            alt={t('carrito-vacio-alt')}
           />
           <Typography variant="h5" gutterBottom>
-            Su carrito está vacío
+            {t('su-carrito-esta-vacio')}
           </Typography>
           <Typography variant="body1">
-            Puede agregar productos a su carrito para poder realizar un pedido.
+            {t('puede-agregar-productos')}
           </Typography>
           <Button component={Link} variant="contained" to="/products">
-            Ver Productos
+            {t('ver-productos')}
           </Button>
         </Box>
       )}
@@ -111,11 +113,11 @@ const CartPage = () => {
           }}
         >
           <Typography variant="h5" gutterBottom textAlign="center">
-            Resumen del pedido
+            {t('resumen-del-pedido')}
           </Typography>
           <img
             src="toldo.jpg"
-            alt="Toldo"
+            alt={t('toldo-alt')}
             style={{ width: '100%', maxWidth: '400px' }}
           />
           <Box

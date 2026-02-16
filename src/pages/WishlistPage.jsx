@@ -6,8 +6,10 @@ import { Box, Grid, Typography } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 import { fetchProducts, fetchWishlist } from '../helpers/productHelpers';
 import DisplayRandomProducts from '../components/DisplayRandomProducts';
+import { useI18n } from '../context/I18nContext';
 
 const WishlistPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
 
@@ -46,12 +48,12 @@ const WishlistPage = () => {
   return (
     <PageContainer>
       <PageHeader
-        title="Lista de favoritos"
-        subtitle="Los productos que siempre has querido encontrar"
+        title={t('lista-de-favoritos')}
+        subtitle={t('los-productos-que-siempre')}
         isLoading={isLoading}
-        isLoadingText="Cargando productos..."
+        isLoadingText={t('cargando-productos')}
       >
-        <NavigationButton href="/cart" text="Carrito ►" />
+        <NavigationButton href="/cart" text={t('carrito')} />
       </PageHeader>
 
       <Box
@@ -64,16 +66,16 @@ const WishlistPage = () => {
           </Grid>
         ))}
       </Box>
-      {hasFavoriteProducts && <NavigationButton href="/products" text="Ver más productos" justifyContent='center' />}
+      {hasFavoriteProducts && <NavigationButton href="/products" text={t('ver-productos')} justifyContent='center' />}
       {!hasFavoriteProducts && !isLoading && (
         <Box sx={{ margin: '2rem', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
           <Typography variant="h4" gutterBottom>
-            No tienes productos en tu lista de favoritos
+            {t('no-tienes-favoritos')}
           </Typography>
           <Typography variant="body1">
-            Visita nuestro catálogo para encontrar productos que te gusten y añadelos a tu lista de favoritos.
+            {t('visita-catalogo-favoritos')}
           </Typography>
-          <NavigationButton href="/products" text="Ver todos los productos" justifyContent='center' />
+          <NavigationButton href="/products" text={t('ver-todos-los-productos')} justifyContent='center' />
           <DisplayRandomProducts />
         </Box>
       )}

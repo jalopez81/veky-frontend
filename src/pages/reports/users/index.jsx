@@ -12,11 +12,13 @@ import {
 } from '@mui/material';
 import DatePickerComponent from '../shared/DatePicker1';
 import ActiveUsersChart from './active-users-chart';
-import { coldefsActiveUsers, coldefsLogins } from './colDefs';
+import { getColdefsActiveUsers, getColdefsLogins } from './colDefs';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CustomAgGrid from '../shared/CustomAgGrid/';
+import { useI18n } from '../../../context/I18nContext';
 
 const UsersReportPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [date_start, setDate_start] = useState('2024-01-01');
@@ -42,7 +44,7 @@ const UsersReportPage = () => {
   return (
     <PageContainer sx={{ backgroundColor: '#eeeeee' }}>
       <PageHeader
-        title="Reporte de usuarios activos"
+        title={t('reporte-usuarios-activos') || "Reporte de usuarios activos"}
         isLoading={isLoading}
       ></PageHeader>
       <Box
@@ -65,7 +67,7 @@ const UsersReportPage = () => {
           variant="contained"
           onClick={() => getUsers({ date_start, date_end })}
         >
-          Actualizar
+          {t('actualizar')}
         </Button>
       </Box>
       <Box
@@ -82,12 +84,12 @@ const UsersReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Usuarios Activos
+            {t('ver-ocultar-usuarios-activos')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <CustomAgGrid
-            colDefs={coldefsActiveUsers}
+            colDefs={getColdefsActiveUsers(t)}
             rowData={users.allUsers}
             width="100%"
           />
@@ -101,12 +103,12 @@ const UsersReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Logins
+            {t('ver-ocultar-logins')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <CustomAgGrid
-            colDefs={coldefsLogins}
+            colDefs={getColdefsLogins(t)}
             rowData={users.logins}
             width="100%"
           />

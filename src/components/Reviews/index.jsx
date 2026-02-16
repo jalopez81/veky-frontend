@@ -5,12 +5,14 @@ import { fetchReviews } from '../../helpers/reviewsHelpers';
 import ReviewCard from './ReviewCard';
 import ReviewForm from './ReviewForm';
 import { useAppContext } from '../../context/AppContext';
+import { useI18n } from '../../context/I18nContext';
 
 const Reviews = ({ productId = 3 }) => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newReviewCount, setnewReviewCount] = useState(0);
   const { getUsername } = useAppContext();
+  const { t } = useI18n();
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +41,7 @@ const Reviews = ({ productId = 3 }) => {
         sx={{ borderTop: '2px dashed lightgray', margin: 2, width: '100%' }}
       />
       <Typography variant="h4" textAlign={'center'}>
-        Reseñas
+        {t('resenas')}
       </Typography>
 
       <Box
@@ -53,7 +55,7 @@ const Reviews = ({ productId = 3 }) => {
         }}
       >
         {isLoading ? (
-          <Typography>Loading...</Typography>
+          <Typography>{t('loading')}</Typography>
         ) : (
           reviews.map((review) => (
             <ReviewCard key={review.id} review={review} />

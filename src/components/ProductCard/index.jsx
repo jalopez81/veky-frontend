@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import RatingStarsSelector from '../Reviews/RatingStarsSelector';
 import WishListIcon from './WishListIcon';
 import { formattedStrPrice } from '../../pages/reports/shared/helpers';
+import { useI18n } from '../../context/I18nContext';
 
 const ProductCard = memo(
 	({
@@ -15,6 +16,7 @@ const ProductCard = memo(
 		disableLinkToDetails = false,
 		buyAgain = false,
 	}) => {
+		const { t } = useI18n();
 		const { name, description, price, images, average_rating } = product;
 		const [isInCart, setIsInCart] = useState(isProductInCart);
 
@@ -97,7 +99,7 @@ const ProductCard = memo(
 									marginBottom: '1rem',
 								}}
 							>
-								Detalles
+								{t('detalles')}
 							</Typography>
 						</Box>
 					)}

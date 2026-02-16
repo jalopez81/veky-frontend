@@ -10,9 +10,11 @@ import PageContainer from '../../../components/PageContainer';
 import PageHeader from '../../../components/PageHeader';
 import { fetchReviewsReport } from '../../../helpers/reports';
 import CustomAgGrid from '../shared/CustomAgGrid';
-import { colDefsReviews } from './colDefsReviews';
+import { getColDefsReviews } from './colDefsReviews';
+import { useI18n } from '../../../context/I18nContext';
 
 const ReviewsReportPage = () => {
+  const { t } = useI18n();
   const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
 
@@ -36,7 +38,7 @@ const ReviewsReportPage = () => {
   return (
     <PageContainer sx={{ backgroundColor: '#eeeeee' }}>
       <PageHeader
-        title="Reporte de comentarios"
+        title={t('reporte-comentarios') || "Reporte de comentarios"}
         isLoading={isLoading}
       ></PageHeader>
       <Accordion defaultExpanded sx={{ marginTop: 4 }}>
@@ -47,12 +49,12 @@ const ReviewsReportPage = () => {
           sx={{ borderBottom: '1px solid #cecece' }}
         >
           <Typography variant="h6" sx={{ textAlign: 'center', width: '100%' }}>
-            Ver / ocultar Reseñas
+            {t('ver-ocultar-resenas')}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <CustomAgGrid
-            colDefs={colDefsReviews}
+            colDefs={getColDefsReviews(t)}
             rowData={reviews}
             width="100%"
           />

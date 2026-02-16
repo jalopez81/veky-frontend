@@ -51,10 +51,9 @@
   "recomendaciones-personalizadas-desc": "Descubre los productos perfectos para ti.",
   "envios-rapidos": "Envíos Rápidos",
   "envios-rapidos-desc": "Recibe tus productos en tiempo récord.",
-  "categorias-destacadas": "Categorías Destacadas",
-  "shampoos": "Shampoos",
-  "acondicionadores": "Acondicionadores",
-  "sprays": "Sprays",
+  "gels": "Gels",
+  "shampoo": "Shampoo",
+  "aceites": "Aceites",
   "ver-mas": "Ver Más",
   "footer-tagline": "Productos para el cuidado del cabello. Inspira tu estilo con nosotros.",
   "enlaces-utiles": "Enlaces útiles",
@@ -269,5 +268,13 @@
   "anadido-al-carrito": "Añadido al carrito",
   "quitar": "Quitar",
   "anadir": "Añadir",
-  "nuestros-productos-recomendados": "Nuestros productos recomendados"
+  "nuestros-productos-recomendados": "Nuestros productos recomendados",
+  "categoria-cremas": "Cremas",
+  "categoria-gel": "Gel",
+  "categoria-shampoo": "Shampoo",
+  "categoria-aceites": "Aceites",
+  "categoria-spray": "Spray",
+  "categoria-mascarillas": "Mascarillas",
+  "categoria-acondicionadores": "Acondicionadores"
+
 }

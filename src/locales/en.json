@@ -51,7 +51,6 @@
   "recomendaciones-personalizadas-desc": "Discover the perfect products for you.",
   "envios-rapidos": "Fast Shipping",
   "envios-rapidos-desc": "Receive your products in record time.",
-  "categorias-destacadas": "Featured Categories",
   "shampoos": "Shampoos",
   "acondicionadores": "Conditioners",
   "sprays": "Sprays",
@@ -268,5 +267,12 @@
   "agregado": "Added",
   "quitar": "Remove",
   "anadir": "Add",
-  "nuestros-productos-recomendados": "Our recommended products"
+  "nuestros-productos-recomendados": "Our recommended products",
+  "categoria-cremas": "Creams",
+  "categoria-gel": "Gel",
+  "categoria-shampoo": "Shampoo",
+  "categoria-aceites": "Oils",
+  "categoria-spray": "Spray",
+  "categoria-mascarillas": "Masks",
+  "categoria-acondicionadores": "Conditioners"
 }

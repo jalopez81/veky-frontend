@@ -112,7 +112,11 @@ const ProductPage = () => {
 
 	const generateCategories = () => {
 		const arr = arrProducts.map((product) => product.category);
-		const uniqueCategories = [...new Set(arr)];
+		const categories = [...new Set(arr)];
+		const translatedCategories = categories.map((category) => {
+			const str = 'categoria-' + category;
+			return t(str);
+		});
 
 		return (
 			<Box
@@ -133,7 +137,7 @@ const ProductPage = () => {
 					label={<Trans i18nKey="todos"></Trans>}
 					onClick={() => handleCategoryFilter(null, search)}
 				/>
-				{uniqueCategories.map((category) => (
+				{translatedCategories.map((category) => (
 					<Chip
 						sx={{ background: getRandomColorFromString(category, search) }}
 						key={category}

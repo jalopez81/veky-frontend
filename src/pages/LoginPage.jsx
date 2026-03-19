@@ -7,11 +7,13 @@ import NavigationButton from '../components/navigation-button';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppContext';
 import { useI18n } from '../context/I18nContext';
+import InfoIcon from '@mui/icons-material/Info';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('jorge0481rd');
-  const [password, setPassword] = useState('moreno81');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('admin');
   const [error, setError] = useState(null);
+  const [showInfo, setShowInfo] = useState(false);
 
   const { isAuthenticated, login } = useAppContext();
   const { t } = useI18n();
@@ -31,6 +33,10 @@ const LoginPage = () => {
       console.log(error);
     }
   };
+
+  const toggleInfo = () => {
+    setShowInfo(!showInfo);
+  }
 
   if (isAuthenticated)
     return (
@@ -82,6 +88,12 @@ const LoginPage = () => {
         </Box>
       </PageHeader>
       <Box sx={{ margin: '0 auto', maxWidth: '400px' }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', padding: 2 }}>
+          <Button><InfoIcon onClick={toggleInfo} sx={{ color: 'gray' }} /></Button>
+        </Box>
+        {showInfo && <Box sx={{ display: 'flex', gap: 2, padding: 1,  mb: 2, justifyContent: 'center', background: 'lightyellow' }}>
+          <Typography variant='caption'>{t('usuarios-info')}</Typography>
+        </Box>}
         <TextField
           label={t('usuario')}
           variant="outlined"

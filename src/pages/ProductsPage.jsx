@@ -156,8 +156,8 @@ const ProductPage = () => {
 				<NavigationButton href="/cart" text={t('carrito') + ' ►'} />
 			</PageHeader>
 
-			{/* Search box */}
-			{!isLoading && (
+			{!isLoading && (<>
+				{/* Search box */}
 				<Box
 					sx={{
 						margin: '1rem  auto 2rem',
@@ -175,24 +175,22 @@ const ProductPage = () => {
 						onChange={handleSearchChange}
 					/>
 				</Box>
-			)}
 
-			{/* Categories */}
-			{generateCategories()}
+				{/* Categories */}
+				{generateCategories()}
 
-			{/* products container */}
-			<Box
-				id="product-cards-container"
-				sx={{
-					display: 'flex',
-					flexWrap: 'wrap',
-					gap: 4,
-					minHeight: '500px',
-					justifyContent: 'center',
-				}}
-			>
-				{!isLoading &&
-					filteredProducts.map((product) => {
+				{/* products container */}
+				<Box
+					id="product-cards-container"
+					sx={{
+						display: 'flex',
+						flexWrap: 'wrap',
+						gap: 4,
+						minHeight: '500px',
+						justifyContent: 'center',
+					}}
+				>
+					{filteredProducts.map((product) => {
 						const isProductInCart = idsInCart.includes(product.id);
 						return (
 							<ProductCard
@@ -202,7 +200,8 @@ const ProductPage = () => {
 							/>
 						);
 					})}
-			</Box>
+				</Box>
+			</>)}
 		</PageContainer>
 	);
 };

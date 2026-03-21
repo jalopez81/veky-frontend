@@ -5,7 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Box } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { ROLES } from './constants';
 import AboutUsPage from './pages/AboutUsPage';
 import AddNewProductPage from './pages/AddNewProductPage';
@@ -44,11 +44,17 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ac0089',
+      main: '#6c5a5a',
     },
     secondary: {
       main: '#00a40f',
     },
+    background: {
+      main: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: 'manrope'    
   },
   components: {
     MuiTextField: {
@@ -73,6 +79,7 @@ const App = () => {
     <AppProvider>
       <I18nProvider>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Router>
             <Navbar />
             <ScrollToTop />

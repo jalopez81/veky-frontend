@@ -12,7 +12,7 @@ import {
 	Drawer,
 	Box,
 } from '@mui/material';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import { useI18n } from '../../context/I18nContext';
 import { useEffect, useState } from 'react';
@@ -38,32 +38,7 @@ import DividerLine from '../shared/DividerLine';
 import vekylogo from './vekylogo.png';
 import { ROLES } from '../../constants';
 
-const classes = {
-	desktopButton: {
-		fontSize: 'inherit',
-		transition: 'all 330ms ease-in-out',
-		margin: '0 4px',
-		position: 'relative',
-		'&::after': {
-			content: '""',
-			position: 'absolute',
-			bottom: 0,
-			left: 0,
-			width: '100%',
-			height: '1px',
-			backgroundColor: 'rgba(255, 255, 255, 0)',
-			transition: 'all 200ms ease-in-out',
-			transform: 'translateY(3px)',
-		},
-		'&:hover': {
-			'&::after': {
-				backgroundColor: 'rgba(255, 255, 255, 1)',
-				transform: 'translateY(0)',
-			},
-			color: '#fff'
-		},
-	}
-}
+
 
 const Navbar = () => {
 	const { isAuthenticated, logout, cartCount, getUserRoles, getUsername } =
@@ -74,19 +49,38 @@ const Navbar = () => {
 	const [userAnchorEl, setUserAnchorEl] = useState(null);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const pathname = location.pathname;
+	console.log(pathname)
 
-	useEffect(() => {
-		const pathname = location.pathname;
-		const btns = document.querySelectorAll('.navbar a');
-		btns.forEach((btn) => {
-			if (btn.pathname === pathname) {
-				btn.style.color = 'yellow';
-			} else {
-				btn.style.color = 'inherit';
-			}
-		});
-	}, [location.pathname]);
+	// useEffect(() => {
+	// 	const btns = document.querySelectorAll('.navbar a');
+	// 	btns.forEach((btn) => {
+	// 		if (btn.pathname === pathname) {
+	// 			btn.style.color = 'yellow';
+	// 		}
+	// 	});
+	// }, [location.pathname]);
 
+	const classes = {
+		desktopButton: {
+			fontSize: '16px',
+			transition: 'all 330ms ease-in-out',
+			fontWeight: 300,
+			margin: '0 4px',
+			position: 'relative',
+			color: "primary.main",
+			textTransform: 'capitalize',
+			borderRadius: 0, 
+			borderBottom: '2px solid transparent',
+			'&.active': {
+				borderBottom: '2px solid #00a40f', 
+			},			
+			'&:hover': {
+				borderBottom: theme => `2px solid ${theme.palette.primary.main}`,
+				color: theme => theme.palette.primary.main,
+			},
+		}
+	}
 
 	// Handle opening the menu
 	const handleMenuClick = (event) => {
@@ -121,14 +115,13 @@ const Navbar = () => {
 	};
 
 	function LanguageSelector() {
-		const { changeLanguage, currentLanguage } = useI18n();		
+		const { changeLanguage, currentLanguage } = useI18n();
 
 		return (
 			<Box sx={{ display: 'flex', gap: 1 }}>
 				{currentLanguage === 'en' && (
 					<Button
-						size="small"
-						color="inherit"
+						size="small"						
 						variant="text"
 						onClick={() => changeLanguage('es')}
 						sx={{ minWidth: '60px' }}
@@ -138,8 +131,7 @@ const Navbar = () => {
 				)}
 				{currentLanguage === 'es' && (
 					<Button
-						size="small"
-						color="inherit"
+						size="small"						
 						variant="text"
 						onClick={() => changeLanguage('en')}
 						sx={{ minWidth: '60px' }}
@@ -161,16 +153,18 @@ const Navbar = () => {
 					left: 0,
 					right: 0,
 					display: { xs: 'none', md: 'flex' },
+					boxShadow: 'none'
 				}}
 				className="navbar"
-			>				
+			>
 				<Toolbar
 					sx={{
 						display: 'flex',
 						justifyContent: 'end',
 						flexWrap: 'wrap',
 						padding: '0.7rem',
-						fontSize: { xs: '10px', md: '11px' }
+						fontSize: { xs: '10px', md: '11px' },
+						backgroundColor: 'background.main'
 					}}
 					className="navbar"
 				>
@@ -187,15 +181,16 @@ const Navbar = () => {
 						alt=""
 					/>
 					<Button
-						color="inherit"
-						component={Link}
+						component={NavLink}
 						size="small"
 						to="/"
 						startIcon={<HomeIcon />}
+						variant='text'
 						sx={{ ...classes.desktopButton, marginLeft: "100px" }}
+
 					>
 						{t('inicio')}
-					</Button>					
+					</Button>
 					{isAuthenticated && (
 						<>
 							{getUserRoles().includes(ROLES.admin) && (
@@ -204,10 +199,12 @@ const Navbar = () => {
 										color="inherit"
 										onClick={handleMenuClick}
 										startIcon={<SettingsIcon />}
+										variant='text'
 										sx={{
 											fontWeight: 'bold',
 											fontSize: 'inherit',
 											...classes.desktopButton
+
 										}}
 									>
 										{t('herramientas')}
@@ -218,27 +215,33 @@ const Navbar = () => {
 					)}
 					<Button
 						color="inherit"
-						component={Link}
+						component={NavLink}
 						size="small"
 						to="/about-us"
 						startIcon={<Diversity3Icon />}
+						variant='text'
 						sx={{ ...classes.desktopButton }}
+
 					>
 						{t('acerca-de-nosotros')}
 					</Button>
 					<Button
 						color="inherit"
-						component={Link}
+						component={NavLink}
 						size="small"
 						to="/questionnare"
 						startIcon={<AutoAwesomeIcon />}
+						variant='text'
 						sx={{ ...classes.desktopButton }}
+
 					>
 						{t('descubre')}
 					</Button>
 					<Button
+						variant='text'
 						sx={{ color: "#ffffff", ...classes.desktopButton }}
-						component={Link}
+
+						component={NavLink}
 						size="small"
 						to="/products"
 						startIcon={<ShoppingBasketIcon />}
@@ -247,11 +250,13 @@ const Navbar = () => {
 					</Button>
 					<Button
 						color="inherit"
-						component={Link}
+						component={NavLink}
 						size="small"
 						to="/cart"
 						startIcon={<ShoppingCartIcon />}
+						variant='text'
 						sx={{ ...classes.desktopButton }}
+
 					>
 						<Badge badgeContent={cartCount} color="secondary">
 							{t('carrito')} &nbsp;
@@ -259,11 +264,13 @@ const Navbar = () => {
 					</Button>
 					<Button
 						color="inherit"
-						component={Link}
+						component={NavLink}
 						size="small"
 						to="/contactus"
 						startIcon={<CallIcon />}
+						variant='text'
 						sx={{ ...classes.desktopButton }}
+
 					>
 						{t('contactanos')}
 					</Button>
@@ -274,7 +281,9 @@ const Navbar = () => {
 							size="small"
 							to="/login"
 							startIcon={<LoginIcon />}
+							variant='text'
 							sx={{ ...classes.desktopButton }}
+
 						>
 							{t('iniciar-sesion')}
 						</Button>
@@ -285,11 +294,13 @@ const Navbar = () => {
 						<>
 							<Button
 								color="inherit"
-								component={Link}
+								component={NavLink}
 								size="small"
 								to="/wishlist"
 								startIcon={<FavoriteIcon />}
+								variant='text'
 								sx={{ ...classes.desktopButton }}
+
 							>
 								{t('lista-de-favoritos')}
 							</Button>
@@ -415,9 +426,11 @@ const Navbar = () => {
 								color="inherit"
 								onClick={openUserMenu}
 								startIcon={<PersonIcon />}
+								variant='text'
 								sx={{
 									fontWeight: 'bold',
 									...classes.desktopButton
+
 								}}
 							>
 								{t('hola')} {`(${getUsername()})`}
@@ -471,8 +484,6 @@ const Navbar = () => {
 				</Toolbar>
 			</AppBar>
 
-			
-
 			{/* MOBILE Navbar */}
 			<AppBar sx={{ display: { xs: 'flex', md: 'none' }, padding: 2 }}>
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -507,7 +518,7 @@ const Navbar = () => {
 					</Typography>
 					<Divider />
 					<Button
-						color="inherit"
+						color="secoind"
 						component={Link}
 						size="small"
 						to="/"
@@ -707,9 +718,9 @@ const Navbar = () => {
 						onClick={handleMenuClose}
 					>
 						{t('permisos-de-usuario')}
-					</MenuItem>										
-				</Box>	
-				
+					</MenuItem>
+				</Box>
+
 			</Drawer>
 		</>
 	);

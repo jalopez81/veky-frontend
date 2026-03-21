@@ -190,7 +190,30 @@ const Navbar = () => {
 
 					>
 						{t('inicio')}
+					</Button>					
+					<Button
+						variant='text'
+						sx={{ color: "#ffffff", ...classes.desktopButton }}
+
+						component={NavLink}
+						size="small"
+						to="/products"
+						startIcon={<ShoppingBasketIcon />}
+					>
+						{t('productos')}
 					</Button>
+					<Button
+						color="inherit"
+						component={NavLink}
+						size="small"
+						to="/questionnare"
+						startIcon={<AutoAwesomeIcon />}
+						variant='text'
+						sx={{ ...classes.desktopButton }}
+
+					>
+						{t('descubre')}
+					</Button>					
 					{isAuthenticated && (
 						<>
 							{getUserRoles().includes(ROLES.admin) && (
@@ -229,24 +252,13 @@ const Navbar = () => {
 						color="inherit"
 						component={NavLink}
 						size="small"
-						to="/questionnare"
-						startIcon={<AutoAwesomeIcon />}
+						to="/contactus"
+						startIcon={<CallIcon />}
 						variant='text'
 						sx={{ ...classes.desktopButton }}
 
 					>
-						{t('descubre')}
-					</Button>
-					<Button
-						variant='text'
-						sx={{ color: "#ffffff", ...classes.desktopButton }}
-
-						component={NavLink}
-						size="small"
-						to="/products"
-						startIcon={<ShoppingBasketIcon />}
-					>
-						{t('productos')}
+						{t('contactanos')}
 					</Button>
 					<Button
 						color="inherit"
@@ -261,18 +273,6 @@ const Navbar = () => {
 						<Badge badgeContent={cartCount} color="secondary">
 							{t('carrito')} &nbsp;
 						</Badge>
-					</Button>
-					<Button
-						color="inherit"
-						component={NavLink}
-						size="small"
-						to="/contactus"
-						startIcon={<CallIcon />}
-						variant='text'
-						sx={{ ...classes.desktopButton }}
-
-					>
-						{t('contactanos')}
 					</Button>
 					{!isAuthenticated && (
 						<Button
@@ -485,7 +485,7 @@ const Navbar = () => {
 			</AppBar>
 
 			{/* MOBILE Navbar */}
-			<AppBar sx={{ display: { xs: 'flex', md: 'none' }, padding: 2 }}>
+			<AppBar sx={{ display: { xs: 'flex', md: 'none', background: 'none', boxShadow: 'none' }, padding: 2 }}>
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
 					<img
 						style={{ width: '100px', height: 'auto' }}
@@ -493,7 +493,7 @@ const Navbar = () => {
 						alt=""
 						onClick={() => navigate('/')}
 					/>
-					<IconButton color="inherit" onClick={toggleMobileDrawer}>
+					<IconButton  onClick={toggleMobileDrawer}>
 						<MenuIcon />
 					</IconButton>
 				</Toolbar>
@@ -527,24 +527,6 @@ const Navbar = () => {
 						{t('inicio')}
 					</Button>
 					<Button
-						color="inherit"
-						component={Link}
-						size="small"
-						to="/about-us"
-						startIcon={<Diversity3Icon />}
-					>
-						{t('acerca-de-nosotros')}
-					</Button>
-					<Button
-						color="inherit"
-						component={Link}
-						size="small"
-						to="/questionnare"
-						startIcon={<AutoAwesomeIcon />}
-					>
-						{t('descubre')}
-					</Button>
-					<Button
 						color="warning"
 						component={Link}
 						size="small"
@@ -557,12 +539,19 @@ const Navbar = () => {
 						color="inherit"
 						component={Link}
 						size="small"
-						to="/cart"
-						startIcon={<ShoppingCartIcon />}
+						to="/questionnare"
+						startIcon={<AutoAwesomeIcon />}
 					>
-						<Badge badgeContent={cartCount} color="secondary">
-							{t('carrito')} &nbsp;
-						</Badge>
+						{t('descubre')}
+					</Button>
+					<Button
+						color="inherit"
+						component={Link}
+						size="small"
+						to="/about-us"
+						startIcon={<Diversity3Icon />}
+					>
+						{t('acerca-de-nosotros')}
 					</Button>
 					<Button
 						color="inherit"
@@ -573,6 +562,26 @@ const Navbar = () => {
 					>
 						{t('contactanos')}
 					</Button>
+					<Button
+						color="inherit"
+						component={Link}
+						size="small"
+						to="/wishlist"
+						startIcon={<FavoriteIcon />}
+					>
+						{t('wishlist')}
+					</Button>
+					<Button
+						color="inherit"
+						component={Link}
+						size="small"
+						to="/cart"
+						startIcon={<ShoppingCartIcon />}
+					>
+						<Badge badgeContent={cartCount} color="secondary">
+							{t('carrito')} &nbsp;
+						</Badge>
+					</Button>
 					<DividerLine />
 					{isAuthenticated && (
 						<>
@@ -581,6 +590,7 @@ const Navbar = () => {
 									color="inherit"
 									component={Link}
 									size="small"
+									startIcon={<SettingsIcon />}
 									onClick={(e) => {
 										e.stopPropagation();
 										toggleToolsDrawer();

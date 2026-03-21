@@ -37,7 +37,7 @@ const ContactUsPage = () => {
         >
           <ContactCard Icon={LocalPhoneIcon} title={t('telefono')}>
             <Typography
-              variant="body1"
+              variant="caption"
               sx={{
                 textAlign: 'center',
                 display: 'flex',
@@ -48,7 +48,7 @@ const ContactUsPage = () => {
               <WhatsAppIcon /> 809-802-5668
             </Typography>
             <Typography
-              variant="body1"
+              variant="caption"
               sx={{
                 textAlign: 'center',
                 display: 'flex',
@@ -60,13 +60,12 @@ const ContactUsPage = () => {
             </Typography>
           </ContactCard>
           <ContactCard Icon={LocationOnIcon} title={t('contacto')}>
-            <Typography variant="body1" textAlign={'center'}>
-              Calle J #4, Matahambre, La Feria III, Santo Domingo, D. N., Rep.
-              Dom.
+            <Typography variant="caption" textAlign={'center'}>
+              135th St Peter St, Brooklin, NY
             </Typography>
           </ContactCard>
           <ContactCard Icon={EmailIcon} title={t('correo-electronico')}>
-            <Typography variant="body1">
+            <Typography variant="caption">
               <a href="mailto:info@vekyrd.com">info@vekyrd.com</a>
             </Typography>
           </ContactCard>

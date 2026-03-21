@@ -50,8 +50,9 @@ const theme = createTheme({
       main: '#00a40f',
     },
     background: {
-      main: '#ffffff',
-    },
+      main: '#fbf9f7',
+      dark: '#beb2a5',
+    },    
   },
   typography: {
     fontFamily: 'manrope'    

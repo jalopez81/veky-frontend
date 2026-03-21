@@ -49,8 +49,7 @@ const Form = () => {
         <Box
             id="contact-form"
             sx={{
-                background: (theme) =>
-                    `linear-gradient(180deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                background: (theme) => theme.palette.background.dark,
                 color: 'white',
                 padding: '2rem',
                 borderRadius: '8px',
@@ -160,7 +159,7 @@ const Form = () => {
                 )}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
                     <Button
-                        type="button" // Use "button" to prevent form submission
+                        type="button" 
                         variant="outlined"
                         color="#ffffff"
                         onClick={() => {
@@ -176,8 +175,7 @@ const Form = () => {
                     </Button>
                     <Button
                         type="submit"
-                        variant="outlined"
-                        color="#ffffff"
+                        variant="contained"                        
                         disabled={!name || !email || !message}
                         onClick={handleSubmit}
                     >

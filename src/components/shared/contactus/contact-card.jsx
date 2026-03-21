@@ -18,7 +18,7 @@ const ContactCard = ({ Icon, title, children }) => {
         outline: 'solid 1px rgba(190, 190, 190, 0.5)',
       }}
     >
-      {<Icon sx={{ color: 'primary.main', fontSize: '3rem' }} />}
+      {<Icon sx={{ color: 'primary.main', fontSize: '1.5rem' }} />}
       <Typography
         variant="body1"
         sx={{

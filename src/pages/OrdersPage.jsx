@@ -116,6 +116,7 @@ const OrderPage = () => {
     setIsLoading(true);
     if (!validatePaymentCardForm(cardDetails, (msg) => {
       setErrorMessage(t(msg) || msg);
+      setIsLoading(false);
     })) return;
 
     const cart = getCartFromLocalStorage();

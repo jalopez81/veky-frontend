@@ -36,12 +36,11 @@ const OrderPage = () => {
   });
 
   const [shippingDetails, setShippingDetails] = useState({
-    address1: 'C/Duarte #45',
-    address2: 'C/Duarte #45, Miraflores',
-    sector: 'Miraflores',
-    city: 'Santo Domingo Este',
-    country: 'República dominicana',
-    zipcode: '99809',
+    address1: '101 Lincoln St',
+    address2: 'Creek Dr',
+    city: 'Miami, FL',
+    country: 'EEUU',
+    zipcode: '33166',
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -303,8 +302,7 @@ const OrderPage = () => {
             sx={{ background: 'white' }}
             fullWidth
           />
-          <TextField
-            label={t('sector')}
+          <TextField            
             name="address2"
             value={shippingDetails.address2}
             onChange={handleShippingInputChange}

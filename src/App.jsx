@@ -52,7 +52,7 @@ const theme = createTheme({
     background: {
       main: '#fbf9f7',
       dark: '#beb2a5',
-    },    
+    } 
   },
   typography: {
     fontFamily: 'manrope'    

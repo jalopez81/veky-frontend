@@ -135,244 +135,168 @@ const AddProductPage = () => {
 	return (
 		<PageContainer>
 			<PageHeader title={t('agregar-producto')}></PageHeader>
+			<Box>
+				{/* text fields */}
+				<>
+					<TextField
+						label={t('nombre-del-producto')}
+						variant="outlined"
+						fullWidth
+						name="name"
+						value={productData.name}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('sku')}
+						variant="outlined"
+						fullWidth
+						name="sku"
+						value={productData.sku}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('categoria')}
+						variant="outlined"
+						fullWidth
+						name="category"
+						value={productData.category}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('descripcion-corta')}
+						variant="outlined"
+						fullWidth
+						name="description"
+						value={productData.description}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('descripcion-larga')}
+						variant="outlined"
+						fullWidth
+						name="description_large"
+						value={productData.description_large}
+						onChange={handleChange}
+						multiline
+						rows={4}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('precio')}
+						variant="outlined"
+						fullWidth
+						name="price"
+						type="number"
+						value={productData.price}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('stock')}
+						variant="outlined"
+						fullWidth
+						name="stock"
+						type="number"
+						value={productData.stock}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+					<TextField
+						label={t('rating-promedio')}
+						variant="outlined"
+						fullWidth
+						name="average_rating"
+						type="number"
+						step="0.1"
+						value={productData.average_rating}
+						onChange={handleChange}
+						sx={{ marginBottom: 2 }}
+					/>
+				</>
 
-			<Box sx={{ margin: '0 auto', maxWidth: '600px' }}>
-				<TextField
-					label={t('nombre-del-producto')}
-					variant="outlined"
-					fullWidth
-					name="name"
-					value={productData.name}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('sku')}
-					variant="outlined"
-					fullWidth
-					name="sku"
-					value={productData.sku}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('categoria')}
-					variant="outlined"
-					fullWidth
-					name="category"
-					value={productData.category}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('descripcion-corta')}
-					variant="outlined"
-					fullWidth
-					name="description"
-					value={productData.description}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('descripcion-larga')}
-					variant="outlined"
-					fullWidth
-					name="description_large"
-					value={productData.description_large}
-					onChange={handleChange}
-					multiline
-					rows={4}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('precio')}
-					variant="outlined"
-					fullWidth
-					name="price"
-					type="number"
-					value={productData.price}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('stock')}
-					variant="outlined"
-					fullWidth
-					name="stock"
-					type="number"
-					value={productData.stock}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<TextField
-					label={t('rating-promedio')}
-					variant="outlined"
-					fullWidth
-					name="average_rating"
-					type="number"
-					step="0.1"
-					value={productData.average_rating}
-					onChange={handleChange}
-					sx={{ marginBottom: 2 }}
-				/>
-				<Box
-					sx={{
-						display: 'flex',
-						gap: 2,
-						marginBottom: 2,
-						alignItems: 'center',
-					}}
-				>
-					<TextField
-						variant="outlined"
-						fullWidth
-						name="imageurl1"
-						type="file"
-						onChange={handleFileChange}
-					></TextField>
-					<Paper
-						elevation={3}
-						sx={{
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							width: '150px',
-							height: '150px',
-							borderRadius: '10px',
-							transition: 'all 0.3s ease-in-out',
-							opacity: previewImagesUrl.imageurl1 ? 100 : 0,
-							transform: `translateX(${previewImagesUrl.imageurl1 ? 0 : 100}%)`,
-						}}
-					>
-						<img
-							src={previewImagesUrl.imageurl1}
-							alt="Preview"
-							style={{
-								maxWidth: '100%',
-								maxHeight: '100%',
-							}}
-						/>
-					</Paper>
-				</Box>
-				<Box
-					sx={{
-						display: 'flex',
-						gap: 2,
-						marginBottom: 2,
-						alignItems: 'center',
-					}}
-				>
-					<TextField
-						variant="outlined"
-						fullWidth
-						name="imageurl2"
-						type="file"
-						onChange={handleFileChange}
-					></TextField>
-					<Paper
-						elevation={3}
-						sx={{
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							width: '150px',
-							height: '150px',
-							borderRadius: '10px',
-							transition: 'all 0.3s ease-in-out',
-							opacity: previewImagesUrl.imageurl2 ? 100 : 0,
-							transform: `translateX(${previewImagesUrl.imageurl2 ? 0 : 100}%)`,
-						}}
-					>
-						<img
-							src={previewImagesUrl.imageurl2}
-							alt="Preview"
-							style={{
-								maxWidth: '100%',
-								maxHeight: '100%',
-							}}
-						/>
-					</Paper>
-				</Box>
-				<Box
-					sx={{
-						display: 'flex',
-						gap: 2,
-						marginBottom: 2,
-						alignItems: 'center',
-					}}
-				>
-					<TextField
-						variant="outlined"
-						fullWidth
-						name="imageurl3"
-						type="file"
-						onChange={handleFileChange}
-					></TextField>
-					<Paper
-						elevation={3}
-						sx={{
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							width: '150px',
-							height: '150px',
-							borderRadius: '10px',
-							transition: 'all 0.3s ease-in-out',
-							opacity: previewImagesUrl.imageurl3 ? 100 : 0,
-							transform: `translateX(${previewImagesUrl.imageurl3 ? 0 : 100}%)`,
-						}}
-					>
-						<img
-							src={previewImagesUrl.imageurl3}
-							alt="Preview"
-							style={{
-								maxWidth: '100%',
-								maxHeight: '100%',
-							}}
-						/>
-					</Paper>
+				{/* file input */}
+				<Box id="image-upload-container" sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginBottom: 2, height: 'flex-start' }}>
+					<ImageUrlPicker imageName={'imageurl1'} handleFileChange={handleFileChange} previewImagesUrl={previewImagesUrl} />
+					<ImageUrlPicker imageName={'imageurl2'} handleFileChange={handleFileChange} previewImagesUrl={previewImagesUrl} />
+					<ImageUrlPicker imageName={'imageurl3'} handleFileChange={handleFileChange} previewImagesUrl={previewImagesUrl} />
 				</Box>
 
+				{/* error */}
 				{error && <Typography color="error">{error}</Typography>}
-				<Box
-					sx={{
-						marginTop: 2,
-						display: 'flex',
-						justifyContent: 'center',
-						gap: 2,
-					}}
-				>
-					{success && <Typography color="success">{success}</Typography>}
-					<Box sx={{ display: editing ? 'flex' : 'none', gap: 2 }}>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={() => handleCreateProduct(productData)}
-							disabled={!isFormValid}
-						>
-							{t('guardar')}
-						</Button>
-						<Button
-							variant="outlined"
-							color="secondary"
-							onClick={() => setEditing(false)}
-						>
-							{t('cancelar')}
-						</Button>
-					</Box>
-					<Box sx={{ display: editing ? 'none' : 'flex' }}>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={resetProductData}
-						>
-							{t('nuevo-producto')}
-						</Button>
-					</Box>
+				{success && <Typography color="success">{success}</Typography>}
+
+				{/* save and cancel  */}
+				<Box sx={{ display: editing ? 'flex' : 'none', gap: 2 }}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => handleCreateProduct(productData)}
+						disabled={!isFormValid}
+					>
+						{t('guardar')}
+					</Button>
+					<Button
+						variant="outlined"
+						color="secondary"
+						onClick={() => setEditing(false)}
+					>
+						{t('cancelar')}
+					</Button>
 				</Box>
+				<Box sx={{ display: editing ? 'none' : 'flex' }}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={resetProductData}
+					>
+						{t('nuevo-producto')}
+					</Button>
+				</Box>
+
 			</Box>
 		</PageContainer>
 	);
 };
 
 export default AddProductPage;
+
+function ImageUrlPicker({ imageName, handleFileChange, previewImagesUrl }) {
+	return (
+		<Box>
+			<TextField
+				variant="outlined"
+				fullWidth
+				name={imageName}
+				type="file"
+				onChange={handleFileChange}
+			></TextField>
+			{previewImagesUrl[imageName] && <Paper
+				elevation={3}
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					width: '150px',
+					height: '150px',
+					borderRadius: '10px',
+					transition: 'all 1s ease-in',
+					opacity: previewImagesUrl[imageName] ? 100 : 0,
+					transform: `translateX(${previewImagesUrl[imageName] ? 0 : 100}%)`,
+				}}
+			>
+				<img
+					src={previewImagesUrl[imageName]}
+					alt="Preview"
+					style={{
+						maxWidth: '100%',
+						maxHeight: '100%',
+					}}
+				/>
+			</Paper>}
+		</Box>
+	)
+}

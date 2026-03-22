@@ -52,15 +52,6 @@ const Navbar = () => {
 	const pathname = location.pathname;
 	console.log(pathname)
 
-	// useEffect(() => {
-	// 	const btns = document.querySelectorAll('.navbar a');
-	// 	btns.forEach((btn) => {
-	// 		if (btn.pathname === pathname) {
-	// 			btn.style.color = 'yellow';
-	// 		}
-	// 	});
-	// }, [location.pathname]);
-
 	const classes = {
 		desktopButton: {
 			fontSize: '16px',
@@ -485,7 +476,7 @@ const Navbar = () => {
 			</AppBar>
 
 			{/* MOBILE Navbar */}
-			<AppBar sx={{ display: { xs: 'flex', md: 'none', background: 'none', boxShadow: 'none' }, padding: 2 }}>
+			<AppBar sx={{ display: { xs: 'flex', md: 'none',  boxShadow: 'none' }, padding: 2, background: theme=>theme.palette.background.main }}>
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
 					<img
 						style={{ width: '100px', height: 'auto' }}

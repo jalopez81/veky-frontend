@@ -270,5 +270,7 @@
   "quitar": "Quitar",
   "anadir": "Añadir",
   "nuestros-productos-recomendados": "Nuestros productos recomendados",
-  "usuarios-info": "user01 (contraseña: user) --- admin (contraseña: admin)"
+  "usuarios-info": "user01 (contraseña: user) --- admin (contraseña: admin)",
+  "subir-imagen": "Subir imagen",
+  "cambiar-imagen": "Cambiar imagen"
 }

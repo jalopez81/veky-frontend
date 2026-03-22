@@ -18,7 +18,7 @@ import { useI18n } from '../../context/I18nContext';
 
 const classes = {
 	container: {
-		border: '1px solid #ccc',
+		border: '1px solid #ccc',		
 		borderRadius: 2,
 		width: '300px',
 		margin: 2,

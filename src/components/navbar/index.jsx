@@ -49,8 +49,7 @@ const Navbar = () => {
 	const [userAnchorEl, setUserAnchorEl] = useState(null);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const pathname = location.pathname;
-	console.log(pathname)
+	const isToolsActive = location.pathname.startsWith('/tools');
 
 	const classes = {
 		desktopButton: {
@@ -214,6 +213,7 @@ const Navbar = () => {
 										onClick={handleMenuClick}
 										startIcon={<SettingsIcon />}
 										variant='text'
+										className= {isToolsActive ? 'active' : ''}
 										sx={{
 											fontWeight: 'bold',
 											fontSize: 'inherit',
@@ -314,7 +314,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/sales"
+											to="/tools/reports/sales"
 											onClick={handleMenuClose}
 										>
 											<AttachMoneyIcon
@@ -325,7 +325,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/top-selling"
+											to="/tools/reports/top-selling"
 											onClick={handleMenuClose}
 										>
 											<EmojiEventsIcon
@@ -336,7 +336,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/pending-orders"
+											to="/tools/reports/pending-orders"
 											onClick={handleMenuClose}
 										>
 											<ProductionQuantityLimitsIcon
@@ -347,7 +347,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/inventory"
+											to="/tools/reports/inventory"
 											onClick={handleMenuClose}
 											divider
 										>
@@ -359,7 +359,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/users"
+											to="/tools/reports/users"
 											onClick={handleMenuClose}
 										>
 											<PersonIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
@@ -368,7 +368,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/reviews"
+											to="/tools/reports/reviews"
 											onClick={handleMenuClose}
 										>
 											<CommentIcon
@@ -379,7 +379,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/reports/contactus"
+											to="/tools/reports/contactus"
 											onClick={handleMenuClose}
 											divider
 										>
@@ -389,7 +389,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/products/inventory"
+											to="/tools/inventory"
 											onClick={handleMenuClose}
 										>
 											{t('inventario')}
@@ -397,7 +397,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/products/add-new-product"
+											to="/tools/add-new-product"
 											onClick={handleMenuClose}
 										>
 											{t('agregar-producto')}
@@ -405,7 +405,7 @@ const Navbar = () => {
 										<MenuItem
 											component={Link}
 											size="small"
-											to="/users/roles"
+											to="/tools/users/roles"
 											onClick={handleMenuClose}
 										>
 											{t('permisos-de-usuario')}
@@ -657,7 +657,7 @@ const Navbar = () => {
 						color="inherit"
 						component={Link}
 						size="small"
-						to="/reports/sales"
+						to="/tools/reports/sales"
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<AttachMoneyIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
@@ -667,7 +667,7 @@ const Navbar = () => {
 						color="inherit"
 						component={Link}
 						size="small"
-						to="/reports/top-selling"
+						to="/tools/reports/top-selling"
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<EmojiEventsIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
@@ -677,7 +677,7 @@ const Navbar = () => {
 						color="inherit"
 						component={Link}
 						size="small"
-						to="/reports/pending-orders"
+						to="/tools/reports/pending-orders"
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<ProductionQuantityLimitsIcon
@@ -689,7 +689,7 @@ const Navbar = () => {
 						color="inherit"
 						component={Link}
 						size="small"
-						to="/reports/inventory"
+						to="/tools/reports/inventory"
 						sx={{ justifyContent: 'start', width: '100%' }}
 					>
 						<InventoryIcon sx={{ fontSize: 18, marginRight: '.6rem' }} />{' '}
@@ -699,7 +699,7 @@ const Navbar = () => {
 					<MenuItem
 						component={Link}
 						size="small"
-						to="/products/inventory"
+						to="/tools/inventory"
 						onClick={handleMenuClose}
 					>
 						{t('inventario')}
@@ -707,7 +707,7 @@ const Navbar = () => {
 					<MenuItem
 						component={Link}
 						size="small"
-						to="/products/add-new-product"
+						to="/tools/add-new-product"
 						onClick={handleMenuClose}
 					>
 						{t('agregar-producto')}

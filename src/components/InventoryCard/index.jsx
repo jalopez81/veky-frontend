@@ -70,8 +70,7 @@ const InventoryCard = ({ product }) => {
 	const [price, setPrice] = useState(10);
 	const [disableSave, setDisableSave] = useState(true);
 	const [openActiveStatusDialog, setOpenActiveStatusDialog] = useState(false);
-	const [activeStatus, setActiveStatus] = useState(product.active);
-	const img1 = product.images[0];
+	const [activeStatus, setActiveStatus] = useState(product.active);	
 
 	useEffect(() => {
 		setStock(product.stock);
@@ -108,7 +107,7 @@ const InventoryCard = ({ product }) => {
 					<Typography variant="body1">SKU: {product.sku}</Typography>
 				</Typography>
 				<ProductThumbnail
-					imageurl={img1}
+					imageurl={product.imageurl}
 					productId={product.id}
 					size="medium"
 				/>

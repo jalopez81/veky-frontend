@@ -129,7 +129,7 @@ const App = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/questionnare" element={<QuestionnairePage />} />
               <Route
-                path="/users/roles"
+                path="/tools/users/roles"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <UserRolesPage />
@@ -137,7 +137,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/products/inventory"
+                path="/tools/inventory"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <InventoryPage />
@@ -145,7 +145,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/products/add-new-product"
+                path="/tools/add-new-product"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <AddNewProductPage />
@@ -153,7 +153,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/sales"
+                path="/tools/reports/sales"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <SalesReportPage />
@@ -161,7 +161,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/pending-orders"
+                path="/tools/reports/pending-orders"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <PendingOrdersReportPage />
@@ -169,7 +169,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/inventory"
+                path="/tools/reports/inventory"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <InventoryReportPage />
@@ -177,7 +177,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/top-selling"
+                path="/tools/reports/top-selling"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <TopSellingProductsReportPage />
@@ -185,7 +185,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/users"
+                path="/tools/reports/users"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <UsersReportPage />
@@ -193,7 +193,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/reviews"
+                path="/tools/reports/reviews"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <ReviewsReportPage />
@@ -201,7 +201,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/reports/contactus"
+                path="/tools/reports/contactus"
                 element={
                   <ProtectedRoute allowedRoles={[ROLES.admin]}>
                     <ContactUsReportPage />

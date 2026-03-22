@@ -181,8 +181,8 @@ const InventoryPage = () => {
         )}
       </Box>
       {/* products container */}
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2 }}>
-        {products.filter((product) => {
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2 }}>        
+        {products.filter((product) => {          
           // Filter by search term
           const matchesSearch = product.name
             .toLowerCase()
@@ -203,7 +203,8 @@ const InventoryPage = () => {
           const matchesActiveStatus = product.active === activeStatus;
 
           // Apply all filters
-          return matchesSearch && matchesStockStatus && matchesPriceRange && matchesActiveStatus;
+          // return matchesSearch && matchesStockStatus && matchesPriceRange && matchesActiveStatus;
+          return true
         }).map((product) => (
           <InventoryCard key={product.id} product={product} />
         ))

@@ -1,11 +1,13 @@
 import {
-	Box,
-	Button,
-	CircularProgress,
-	Paper,
-	Typography
+    Box,
+    Button,
+    CircularProgress,
+    Paper,
+    Typography,
+    Fade,
+    Grow
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState, useRef } from 'react';
 import PageContainer from '../../components/PageContainer';
 import PageHeader from '../../components/PageHeader';
 import ProductCardHorizontal from '../../components/ProductCard/ProductCardHorizontal';
@@ -17,225 +19,182 @@ import { apiPostQuestionnaire } from '../../api/api';
 import { useI18n } from '../../context/I18nContext';
 
 const QuestionnairePage = () => {
-	const { t, currentLanguage } = useI18n();
-	const [hideRecommendations, setHideRecommendations] = useState(true);
-	const [isLoading, setIsLoading] = useState(false);
+    const { t, currentLanguage } = useI18n();
+    const resultsRef = useRef(null); // Referencia para scroll automático
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [showResults, setShowResults] = useState(false);
 
-	const [hairType, setHairType] = useState('rizado');
-	const [hairLength, setHairLength] = useState('largo');
-	const [dyeHairFrequency, setDyeHairFrequency] = useState('Sí, frecuentemente');
-	const [mainConcern, setMainConcern] = useState('Caída excesiva');
-	const [scalpCondition, setScalpCondition] = useState('saludable');
-	const [currentIssues, setCurrentIssues] = useState('resequedad por el calor');
-	const [goals, setGoals] = useState('quiero un spray para cuidarlo del calor');
-	const [language, setLanguage] = useState(currentLanguage);
+    // Agrupamos el estado para mayor limpieza
+    const [formData, setFormData] = useState({
+        hairType: 'rizado',
+        hairLength: 'largo',
+        dyeHairFrequency: 'Sí, frecuentemente',
+        mainConcern: 'Caída excesiva',
+        scalpCondition: 'saludable',
+        currentIssues: 'resequedad por el calor',
+        goals: 'quiero un spray para cuidarlo del calor',
+    });
 
-	const [recommendations, setRecommendations] = useState([]);
-	const [generalTips, setGeneralTips] = useState('');
+    const [recommendations, setRecommendations] = useState([]);
+    const [generalTips, setGeneralTips] = useState('');
+    const [generalTipsImageUrl, setGeneralTipsImageUrl] = useState(null);
 
-	const generalTipsUrlList = [
-		'/img/happy-woman1.jpg',
-		'/img/happy-woman2.jpg',
-		'/img/happy-woman3.jpg',
-		'/img/happy-woman4.jpg',
-		'/img/happy-woman5.jpg',
-		'/img/happy-woman6.jpg',
-		'/img/happy-woman7.jpg',
-		'/img/happy-woman8.jpg',
-	];
-	const [generalTipsImageUrl, setGeneralTipsImageUrl] = useState(null);
+    const generalTipsUrlList = [
+        '/img/happy-woman1.jpg', '/img/happy-woman2.jpg', '/img/happy-woman3.jpg',
+        '/img/happy-woman4.jpg', '/img/happy-woman5.jpg', '/img/happy-woman6.jpg',
+        '/img/happy-woman7.jpg', '/img/happy-woman8.jpg',
+    ];
 
-	useEffect(() => {
-		setLanguage(currentLanguage);
-	}, [currentLanguage]);
+    const getRandomImage = () => {
+        const randomIndex = Math.floor(Math.random() * generalTipsUrlList.length);
+        setGeneralTipsImageUrl(generalTipsUrlList[randomIndex]);
+    };
 
-	const getRandomImage = () => {
-		const urls = generalTipsUrlList;
-		const randomIndex = Math.floor(Math.random() * urls.length);
-		setGeneralTipsImageUrl(urls[randomIndex]);
-	};
+    const handleSubmit = async () => {
+        setShowResults(false);
+        setIsLoading(true);
 
-	const handleSubmit = async () => {
-		setHideRecommendations(true);
-		setIsLoading(true);
+        try {
+            const response = await apiPostQuestionnaire({
+                ...formData,
+                language: currentLanguage
+            });
+            
+            setRecommendations(response.recommendations);
+            setGeneralTips(response.generalTips);
+            getRandomImage();
+            setShowResults(true);
 
-		const thisButton = document.getElementById('send-button');
-		thisButton.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start',
-		});
+            // Scroll suave a los resultados después de un breve delay
+            setTimeout(() => {
+                resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
 
-		try {
-			const questionResponses = {
-				hairType,
-				hairLength,
-				scalpCondition,
-				currentIssues,
-				goals,
-				language
-			};
+        } catch (error) {
+            console.error(t('error-enviando-respuestas'), error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-			//api call
-			const { recommendations, generalTips } = await apiPostQuestionnaire(
-				questionResponses
-			);
-			setRecommendations(recommendations);
-			setGeneralTips(generalTips);
-			getRandomImage();
-		} catch (error) {
-			console.error(t('error-enviando-respuestas'), error);
-		} finally {
-			setHideRecommendations(false);
-			setIsLoading(false);
-		}
-	};
+    return (
+        <PageContainer>
+            <PageHeader
+                title={t('asistente-ia-belleza')}
+                subtitle={t('sistema-inteligente-analizara')}
+            >
+                <NavigationButton href="/home" text={t('inicio') + ' ►'} />
+            </PageHeader>
 
-	return (
-		<PageContainer>
-			<PageHeader
-				title={t('asistente-ia-belleza')}
-				subtitle={t('sistema-inteligente-analizara')}
-			>
-				<NavigationButton href="/home" text={t('inicio') + ' ►'} />
-			</PageHeader>
+            {/* Formulario */}
+            <Box sx={{ mb: 4 }}>
+                <FormRadioButtons 
+                    {...formData} 
+                    setHairType={(val) => setFormData({...formData, hairType: val})}
+                    setHairLength={(val) => setFormData({...formData, hairLength: val})}
+                    setDyeHairFrequency={(val) => setFormData({...formData, dyeHairFrequency: val})}
+                    setMainConcern={(val) => setFormData({...formData, mainConcern: val})}
+                />
 
-			<FormRadioButtons
-				hairType={hairType}
-				setHairType={setHairType}
-				hairLength={hairLength}
-				setHairLength={setHairLength}
-				dyeHairFrequency={dyeHairFrequency}
-				setDyeHairFrequency={setDyeHairFrequency}
-				mainConcern={mainConcern}
-				setMainConcern={setMainConcern}
-			/>
+                <FormTextFields
+                    {...formData}
+                    setScalpCondition={(val) => setFormData({...formData, scalpCondition: val})}
+                    setCurrentIssues={(val) => setFormData({...formData, currentIssues: val})}
+                    setGoals={(val) => setFormData({...formData, goals: val})}
+                />
 
-			<FormTextFields
-				scalpCondition={scalpCondition}
-				setScalpCondition={setScalpCondition}
-				currentIssues={currentIssues}
-				setCurrentIssues={setCurrentIssues}
-				goals={goals}
-				setGoals={setGoals}
-			/>
+                <Box sx={{ textAlign: 'center', mt: 4 }}>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        onClick={handleSubmit}
+                        disabled={isLoading}
+                        sx={{ borderRadius: '20px', px: 4 }}
+                    >
+                        {isLoading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : t('enviar-respuestas')}
+                    </Button>
+                </Box>
+            </Box>
 
-			<Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
-				<Button
-					id="send-button"
-					variant="contained"
-					color="primary"
-					onClick={handleSubmit}
-					disabled={isLoading}
-				>
-					{t('enviar-respuestas')}
-				</Button>
-			</Box>
+            <Box sx={{ my: 4, borderTop: 'dashed 2px #ccc' }} ref={resultsRef}></Box>
 
+            {/* Estado de Carga */}
+            {isLoading && (
+                <Fade in={isLoading}>
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                        <Typography variant="h6" color="primary" gutterBottom>
+                            {t('buscando-resultados')}
+                        </Typography>
+                        <CircularProgress />
+                    </Box>
+                </Fade>
+            )}
 
-			<Box
-				sx={{ margin: 2, width: '100%', borderTop: 'dashed 3px #ccc' }}
-			></Box>
+            {/* Resultados */}
+            {showResults && !isLoading && (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 3,
+                        justifyContent: 'center',
+                        p: 2,
+                        flexWrap: { xs: 'wrap', md: 'nowrap' },
+                        animation: 'fadeIn 0.8s ease-in-out'
+                    }}
+                >
+                    {/* Columna Izquierda: Tips e Imagen */}
+                    <Box sx={{ flex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Grow in={showResults}>
+                            <Paper elevation={3} sx={{ p: 1, mb: 2, borderRadius: '15px', overflow: 'hidden' }}>
+                                {generalTipsImageUrl && (
+                                    <img
+                                        src={generalTipsImageUrl}
+                                        alt="Recomendación"
+                                        style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
+                                    />
+                                )}
+                            </Paper>
+                        </Grow>
+                        <Typography
+                            variant="body1"
+                            dangerouslySetInnerHTML={{ __html: generalTips }}
+                            sx={{ p: 2, bgcolor: 'rgba(0,0,0,0.03)', borderRadius: '10px' }}
+                        />
+                    </Box>
 
-			<Typography
-				variant="h6"
-				sx={{
-					margin: 1,
-					textAlign: 'center',
-					transition: 'all 300ms ease-in-out',
-					opacity: isLoading ? 1 : 0,
-					transform: `translateY(${isLoading ? 100 : -300}px)`,
-				}}
-			>
-				{t('buscando-resultados')}
-				<CircularProgress />
-			</Typography>
-
-			<Box
-				id="questionaire-ai-response"
-				sx={{
-					display: 'flex',
-					gap: 2,
-					justifyContent: 'center',
-					padding: 2,
-					boxSizing: 'border-box',
-					flexWrap: { xs: 'wrap', md: 'nowrap' },
-				}}
-			>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						flexDirection: 'column',
-					}}
-				>
-					<Paper
-						sx={{
-							padding: '4px',
-							boxSizing: 'border-box',
-							margin: '0 auto',
-							transition: 'all 700ms ease-in-out',
-							opacity: hideRecommendations ? 0 : 1,
-							transform: `translateX(${hideRecommendations ? -100 : 0}px)`,
-						}}
-					>
-						{generalTipsImageUrl && (
-							<img
-								src={generalTipsImageUrl}
-								alt={t('mujer-feliz-alt')}
-								style={{ maxWidth: '375px', height: 'auto' }}
-							/>
-						)}
-					</Paper>
-					<Typography
-						variant="body1"
-						dangerouslySetInnerHTML={{
-							__html: generalTips,
-						}}
-						sx={{
-							margin: 1,
-							textAlign: 'left',
-							transition: 'all 300ms ease-in-out',
-							opacity: hideRecommendations ? 0 : 1,
-							transform: `translateY(${hideRecommendations ? 100 : 0}px)`,
-						}}
-					></Typography>
-				</Box>
-				<Box>
-					{recommendations.map((product, index) => (
-						<Box
-							className="recommended-product-card"
-							key={`${product.name}-${product.id}`}
-							sx={{
-								display: 'flex',
-								gap: 1,
-								flexDirection: 'column',
-								maxWidth: '400px',
-								padding: 2,
-								boxSizing: 'border-box',
-								transition: `all ${(index + 4) * 2 * 100}ms ease-in-out`,
-								opacity: hideRecommendations ? 0 : 1,
-								transform: `translateX(${hideRecommendations ? 100 : 0}px)`,
-							}}
-						>
-							<ProductCardHorizontal
-								product={product}
-								isProductInCart={false}
-								disableLinkToDetails
-							/>
-
-							<Typography
-								variant="subtitle1"
-								sx={{ margin: 1, textAlign: 'center', fontSize: '0.8rem' }}
-								dangerouslySetInnerHTML={{
-									__html: randomlyFormatParagraph(product.recommendation),
-								}}
-							></Typography>
-						</Box>
-					))}
-				</Box>
-			</Box>
-		</PageContainer>
-	);
+                    {/* Columna Derecha: Productos */}
+                    <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                        {recommendations.map((product, index) => (
+                            <Fade in={showResults} timeout={(index + 1) * 500} key={product.id}>
+                                <Box sx={{ mb: 3, maxWidth: '400px', justifyCointent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <ProductCardHorizontal
+                                        product={product}
+                                        isProductInCart={false}
+                                        disableLinkToDetails
+                                    />
+                                    <Typography
+                                        variant="caption"
+                                        component="div"
+                                        sx={{ 
+                                            mt: 1, 
+                                            p: 1.5, 
+                                            fontStyle: 'italic', 
+                                            borderLeft: '3px solid #ccc',
+                                            ml: 2 
+                                        }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: randomlyFormatParagraph(product.recommendation),
+                                        }}
+                                    />
+                                </Box>
+                            </Fade>
+                        ))}
+                    </Box>
+                </Box>
+            )}
+        </PageContainer>
+    );
 };
 
 export default QuestionnairePage;

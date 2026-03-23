@@ -47,7 +47,7 @@ const AddRemoveProductButton = ({
           transition: 'all 0.3s ease-in-out',
         }}
       >
-        <AddedToCartIcon />
+        <AddedToCartIcon visible={isInCart} />
       </Box>
 
       <Button

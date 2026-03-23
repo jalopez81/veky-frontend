@@ -1,7 +1,9 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import { useI18n } from '../../context/I18nContext';
+import { useEffect, useState } from 'react';
 
 const containerStyle = {
   position: 'relative',
@@ -12,13 +14,6 @@ const containerStyle = {
   justifyContent: 'center',
 };
 
-const checkStyle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  color: 'green',
-  transform: 'translate(5px, -28px)',
-};
 
 const cartStyle = {
   position: 'absolute',
@@ -32,8 +27,25 @@ const textStyle = {
   transform: 'translate(-8px, 15px)',
 };
 
-const AddedToCartIcon = () => {
+const AddedToCartIcon = ({ visible = false }) => {
+  const [show, setShow] = useState(false);
   const { t } = useI18n();
+
+  useEffect(() => {
+    setShow(visible);
+  }, [visible]);
+
+  const checkStyle = {
+    position: 'absolute',
+    top: show ? -3 : 10,
+    left: show ? -7 : -5,
+    opacity: show ? 1 : 0,
+    color: 'green',
+    transform: 'translate(5px, -28px)',
+    transition: 'all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6)',
+    transitionDelay: show ? '0.3s' : '0s',
+  };
+
   return (
     <Box sx={containerStyle} title={t('anadido-al-carrito')}>
       <CheckCircleIcon sx={checkStyle} />
@@ -43,6 +55,10 @@ const AddedToCartIcon = () => {
       </Typography>
     </Box>
   );
+};
+
+AddedToCartIcon.propTypes = {
+  visible: PropTypes.bool,
 };
 
 export default AddedToCartIcon;

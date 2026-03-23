@@ -15,7 +15,7 @@ const PendingOrdersReportPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pendingOrdersData, setPendingOrdersData] = useState([]);
   const [date_start, setDate_start] = useState('2024-01-01');
-  const [date_end, setDate_end] = useState('2024-12-31');
+  const [date_end, setDate_end] = useState('2027-12-31');
 
   const isMobile = useDeviceType().isMobile;
   const colDefsPendingOrders = getColumnDefsPendingOrders(isMobile, t);

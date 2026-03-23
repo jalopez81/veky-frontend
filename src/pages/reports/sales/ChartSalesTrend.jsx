@@ -14,6 +14,7 @@ import {
 import { Box } from '@mui/material';
 import { getFromDate } from '../../../utils/getFromDate';
 import { getRandomColor, hexToRGBA } from '../../../utils/colors';
+import { t } from 'i18next';
 
 // prettier-ignore
 ChartJS.register(
@@ -68,7 +69,7 @@ const ChartSalesTrend = ({ info, sx }) => {
     plugins: {
       title: {
         display: true,
-        text: 'Tendencia de ventas por mes',
+        text: t('ventas-del-mes'),
       },
     },
   };

@@ -130,6 +130,11 @@ const LoginPage = () => {
             variant="contained"
             color="primary"
             onClick={() => handleLogin(username, password)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleLogin(username, password);
+              }
+            }}
             fullWidth
           >
             {t('aceptar')}

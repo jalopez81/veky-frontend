@@ -114,6 +114,11 @@ const LoginPage = () => {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleLogin(username, password);
+            }
+          }}
           sx={{ marginBottom: 2 }}
         />
         {error && <Typography color="error">{error}</Typography>}
@@ -129,12 +134,7 @@ const LoginPage = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => handleLogin(username, password)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleLogin(username, password);
-              }
-            }}
+            onClick={() => handleLogin(username, password)}            
             fullWidth
           >
             {t('aceptar')}

@@ -118,6 +118,7 @@ const AddProductPage = () => {
                 setSuccess(t('producto-creado-exitosamente'));
             }
         } catch (err) {
+            console.error(err);
             setError(err.response?.data?.message || 'Error creating product');
         }
     };
@@ -135,7 +136,7 @@ const AddProductPage = () => {
                 <TextField label={t('categoria')} fullWidth name="category" value={productData.category} onChange={handleChange} sx={{ mb: 2 }} />
                 <TextField label={t('descripcion-corta')} fullWidth name="description" value={productData.description} onChange={handleChange} sx={{ mb: 2 }} />
                 <TextField label={t('descripcion-larga')} fullWidth name="description_large" value={productData.description_large} onChange={handleChange} multiline rows={4} sx={{ mb: 2 }} />
-                
+
                 <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                     <TextField label={t('precio')} name="price" type="number" value={productData.price} onChange={handleChange} fullWidth />
                     <TextField label={t('stock')} name="stock" type="number" value={productData.stock} onChange={handleChange} fullWidth />
@@ -204,11 +205,11 @@ function ImageUrlPicker({ imageName, handleFileChange, previewImagesUrl }) {
             {previewImagesUrl[imageName] && (
                 <Paper elevation={3} sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2 }}>
                     <img src={previewImagesUrl[imageName]} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-					<Button variant="contained" onClick={() => fileInputRef.current.click()}>
+                    <Button variant="contained" onClick={() => fileInputRef.current.click()}>
                         {t('cambiar-imagen')}
                     </Button>
                 </Paper>
-            )}			
+            )}
         </Box>
     );
 }

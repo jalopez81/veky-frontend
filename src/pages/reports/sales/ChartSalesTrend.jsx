@@ -58,7 +58,7 @@ const ChartSalesTrend = ({ info, sx }) => {
     .map((key) => arrDataset[key]);
 
   const data = {
-    Title: 'ventas del mes',
+    Title: t('ventas-del-mes'),
     labels: extractLabels(info),
     datasets: Object.values(arrDatasetSortedByMonth),
   };

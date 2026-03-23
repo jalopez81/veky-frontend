@@ -7,7 +7,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Typography,
 } from '@mui/material';
 import DatePickerComponent from '../shared/DatePicker1';
@@ -61,14 +60,8 @@ const UsersReportPage = () => {
           setDate_end={setDate_end}
           date_start={date_start}
           date_end={date_end}
+          updateFunc={() => getUsers({ date_start, date_end })}
         />
-
-        <Button
-          variant="contained"
-          onClick={() => getUsers({ date_start, date_end })}
-        >
-          {t('actualizar')}
-        </Button>
       </Box>
       <Box
         className="users-charts"

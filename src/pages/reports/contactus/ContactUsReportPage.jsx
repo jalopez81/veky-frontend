@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { apiFetchContactUsReport } from '../../../api/api';
 import PageContainer from '../../../components/PageContainer';
 import PageHeader from '../../../components/PageHeader';
@@ -16,18 +16,33 @@ const MessagesPage = () => {
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
 
-  const VerButtonRenderer = (props) => {
+  const handleMarkAsRead = useCallback((id, read) => {
+    setMessages(prevMessages =>
+      prevMessages.map(msg =>
+        msg.id === id ? { ...msg, read } : msg
+      )
+    );
+  }, []);
+
+  const handleDelete = useCallback((id) => {
+    setMessages(prevMessages =>
+      prevMessages.filter(msg => msg.id !== id)
+    );
+  }, []);
+  
+  const VerButtonRenderer = useCallback((props) => {
     const handleClick = () => {
       setSelectedMessage(props.data);
       setOpen(true);
     };
+
 
     return (
       <Button size="small" variant="contained" onClick={handleClick}>
         {t('ver')}
       </Button>
     );
-  };
+  }, [t]);
 
   VerButtonRenderer.propTypes = {
     data: PropTypes.object.isRequired,
@@ -48,7 +63,7 @@ const MessagesPage = () => {
           <Chip
             size="small"
             label={read ? t('leido') : t('no-leido')}
-            color={read ? 'success' : 'default'}
+            color={read ? t('success') : t('default')}
           />
         );
       },
@@ -65,7 +80,7 @@ const MessagesPage = () => {
       filter: false,
       cellRenderer: VerButtonRenderer,
     },
-  ], [t]);
+  ], [VerButtonRenderer, t]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -86,7 +101,13 @@ const MessagesPage = () => {
   return (
     <PageContainer sx={{ position: 'relative' }}>
       <PageHeader title={t('mensajes-recibidos') || "Mensajes Recibidos"} />
-      <MessageDetails msg={selectedMessage} open={open} setOpen={setOpen} />
+      <MessageDetails
+        msg={selectedMessage}
+        open={open}
+        setOpen={setOpen}
+        onMarkedRead={handleMarkAsRead}
+        onDelete={handleDelete}
+      />
       {loading ? (
         <Typography>{t('cargando-mensajes') || "Cargando mensajes..."}</Typography>
       ) : error ? (
@@ -100,6 +121,10 @@ const MessagesPage = () => {
       )}
     </PageContainer>
   );
+};
+
+MessagesPage.propTypes = {
+  data: PropTypes.array,
 };
 
 export default MessagesPage;

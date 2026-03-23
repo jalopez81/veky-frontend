@@ -273,5 +273,12 @@
   "usuarios-info": "user01 (contraseña: user) --- admin (contraseña: admin)",
   "subir-imagen": "Subir imagen",
   "cambiar-imagen": "Cambiar imagen",
-  "tendencia-ventas-mes": "Tendencia de ventas por mes"
+  "tendencia-ventas-mes": "Tendencia de ventas por mes",
+  "activos": "Activos",
+  "inactivos": "Inactivos",
+  "success": "success",
+  "default": "default",
+  "marcar-no-leido": "Marcar como no leído",
+  "detalles-mensaje": "Detalles del mensaje"
+
 }

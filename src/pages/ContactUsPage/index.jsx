@@ -86,14 +86,14 @@ const ContactUsPage = () => {
           }}
         >
           <ContactCard Icon={InstagramIcon} title="Instagram">
-            <Typography variant="body1">
+            <Typography variant="body1" textAlign={'center'}>
               <a href="https://www.instagram.com/vekyrd/?hl=es">
                 {t('visitanos-en-instagram')}
               </a>
             </Typography>
           </ContactCard>
           <ContactCard Icon={FacebookIcon} title="Facebook">
-            <Typography variant="body1">
+            <Typography variant="body1" textAlign={'center'}>
               <a href="https://www.facebook.com/profile.php?id=100064147778470">
                 {t('visitanos-en-facebook')}
               </a>

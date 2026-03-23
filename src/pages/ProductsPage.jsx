@@ -56,7 +56,7 @@ const ProductPage = () => {
 						product.isInWishlist = arrWishlist.includes(product.id);
 					});
 
-					setArrProducts(products);
+					setArrProducts();
 				}
 			} catch (error) {
 				console.error('Error fetching wishlist:', error);
@@ -190,7 +190,7 @@ const ProductPage = () => {
 						justifyContent: 'center',
 					}}
 				>
-					{filteredProducts.map((product) => {
+					{filteredProducts.filter(p => p.active === true).map((product) => {
 						const isProductInCart = idsInCart.includes(product.id);
 						return (
 							<ProductCard

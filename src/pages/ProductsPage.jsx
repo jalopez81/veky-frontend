@@ -58,6 +58,11 @@ const ProductPage = () => {
 
 					setArrProducts();
 				}
+
+				const cart = getCartFromLocalStorage();
+				const productsInCart = getProductsInCart(products, cart);
+				const ids = productsInCart.map((product) => product.id);
+				setIdsInCart(ids);
 			} catch (error) {
 				console.error('Error fetching wishlist:', error);
 			}
@@ -69,12 +74,6 @@ const ProductPage = () => {
 		fetchData();
 	}, []);
 
-	useEffect(() => {
-		const cart = getCartFromLocalStorage();
-		const productsInCart = getProductsInCart(arrProducts, cart);
-		const ids = productsInCart.map((product) => product.id);
-		setIdsInCart(ids);
-	}, [arrProducts]);
 
 	useEffect(() => {
 		const searchParams = new URLSearchParams(location.search);
@@ -111,7 +110,7 @@ const ProductPage = () => {
 	};
 
 	const generateCategories = () => {
-		const arr = arrProducts.map((product) => product.category);
+		const arr = arrProducts?.map((product) => product.category) || [];
 		const uniqueCategories = [...new Set(arr)];
 
 		return (

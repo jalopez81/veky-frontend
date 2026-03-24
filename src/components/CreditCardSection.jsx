@@ -14,7 +14,6 @@ const CreditCardSection = ({ card, setCard, editing, setEditing, onSave, onRemov
     }}>
       <Typography variant="h6" sx={{ mb: 2 }}>{t('tarjeta-credito')}</Typography>
 
-      {/* VISTA: TIENE TARJETA Y NO ESTÁ EDITANDO */}
       {card.hasCard && !editing && (
         <Box sx={{ width: '100%' }}>
           <Typography variant="body1"><strong>{card.holder}</strong></Typography>
@@ -29,12 +28,10 @@ const CreditCardSection = ({ card, setCard, editing, setEditing, onSave, onRemov
         </Box>
       )}
 
-      {/* VISTA: NO TIENE TARJETA */}
       {!card.hasCard && !editing && (
         <Button variant="contained" onClick={() => setEditing(true)}>{t('agregar-tarjeta')}</Button>
       )}
 
-      {/* VISTA: FORMULARIO DE EDICIÓN / CREACIÓN */}
       {editing && (
         <Stack spacing={2} sx={{ width: '100%' }}>
           <TextField label={<LabelBg>{t('nombre-y-apellido')}</LabelBg>} fullWidth 

@@ -1,4 +1,4 @@
-import { Box, Card, Paper, Typography } from '@mui/material';
+import { Skeleton, Box, Card, Paper, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
 import AddRemoveProductButton from '../AddRemoveProductButton/';
 import PropTypes from 'prop-types';
@@ -8,6 +8,8 @@ import RatingStarsSelector from '../Reviews/RatingStarsSelector';
 import WishListIcon from './WishListIcon';
 import { formattedStrPrice } from '../../pages/reports/shared/helpers';
 import { useI18n } from '../../context/I18nContext';
+
+
 
 const ProductCard = memo(
 	({
@@ -19,6 +21,7 @@ const ProductCard = memo(
 		const { t } = useI18n();
 		const { name, description, price, images, average_rating } = product;
 		const [isInCart, setIsInCart] = useState(isProductInCart);
+		const [loaded, setLoaded] = useState(false);
 
 		const navigate = useNavigate();
 
@@ -53,12 +56,15 @@ const ProductCard = memo(
 							width: { xs: '100%', sm: '200px' }
 						}}
 					>
+						{!loaded && <Skeleton variant="rectangular" width="100%" height={200} />}
 						<img
-							width="100%"
-							height="auto"
 							src={images[0]}
 							alt={product.name}
+							onLoad={() => setLoaded(true)} 
 							style={{
+								display: loaded ? 'block' : 'none', 
+								width: '100%',
+								height: 'auto',
 								transition: 'all 0.3s ease-in-out',
 								transform: isInCart
 									? 'scale(1.5) rotate(3deg) translateY(30px)'

@@ -255,7 +255,7 @@ export const apiGetCreditCard = async () => {
 	return response.data;
 };
 
-export const apiCreateCreditCard = async (creditcardInfo) => {
+export const apiCreateCreditCard = async (creditcardInfo) => {	
 	const response = await api.post(`${BASE_URL}/users/createCreditCard`, {
 		...creditcardInfo,
 	});

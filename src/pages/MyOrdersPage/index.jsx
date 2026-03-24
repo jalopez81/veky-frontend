@@ -52,7 +52,7 @@ const MyOrdersPage = () => {
     };
 
     return (
-      <Button size="small" variant="contained" onClick={handleClick}>
+      <Button sx={{ margin: '0 2rem '}}  size="small" variant="contained" onClick={handleClick}>
         {t('ver')}
       </Button>
     );

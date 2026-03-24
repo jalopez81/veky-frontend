@@ -122,6 +122,7 @@ const ProductCard = memo(
 							fontWeight: 700,
 							textAlign: 'center',
 							display: 'flex',
+							minHeight: '3rem',
 							alignItems: 'center',
 							justifyContent: 'center',
 							width: '100%',

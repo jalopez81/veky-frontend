@@ -278,5 +278,16 @@
   "success": "success",
   "default": "default",
   "marcar-no-leido": "Mark as unread",
-  "detalles-mensaje": "Message Details"
+  "detalles-mensaje": "Message Details",
+  "tarjeta-guardada": "Card saved successfully",
+  "error-guardar-tarjeta": "Failed to save card",
+  "tarjeta-eliminada": "Card deleted successfully",
+  "error-eliminar-tarjeta": "Failed to delete card",
+  "error-cargar-perfil": "Failed to load profile",
+  "perfil-actualizado": "Profile updated successfully",
+  "error-actualizar-perfil": "Failed to update profile",
+  "fecha-expiracion": "Expiration date",
+  "numero-tarjeta": "Card number",
+  "nombre-tarjeta": "Cardholder name"
+
 }

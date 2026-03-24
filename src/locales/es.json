@@ -279,6 +279,15 @@
   "success": "success",
   "default": "default",
   "marcar-no-leido": "Marcar como no leído",
-  "detalles-mensaje": "Detalles del mensaje"
-
+  "detalles-mensaje": "Detalles del mensaje",
+  "tarjeta-guardada": "Tarjeta guardada exitosamente",
+  "error-guardar-tarjeta": "Fallo al guardar la tarjeta",
+  "tarjeta-eliminada": "Tarjeta eliminada exitosamente",
+  "error-eliminar-tarjeta": "Fallo al eliminar la tarjeta",
+  "error-cargar-perfil": "Fallo al cargar el perfil",
+  "perfil-actualizado": "Perfil actualizado exitosamente",
+  "error-actualizar-perfil": "Fallo al actualizar el perfil",
+  "fecha-expiracion": "Fecha de expiración",
+  "numero-tarjeta": "Número de tarjeta",
+  "nombre-tarjeta": "Nombre del tarjeta"
 }

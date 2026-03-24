@@ -91,11 +91,7 @@ const MyOrdersPage = () => {
           <NavigationButton href="/products" text={`${t('productos')} ►`} />
         </Box>
       </PageHeader>
-      <SelectedOrder
-        data={selectedData}
-        open={openModal}
-        handleClose={() => setOpenModal(false)}
-      />
+      { selectedData && <SelectedOrder data={selectedData} open={openModal} handleClose={() => setOpenModal(false)} /> }
       <CustomAgGrid
         colDefs={getColumnDefsMyOrders(isMobile)}
         rowData={ordersData}

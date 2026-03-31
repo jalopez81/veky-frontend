@@ -630,6 +630,9 @@ const Navbar = () => {
 							{t('iniciar-sesion')}
 						</Button>
 					)}
+
+					<Divider sx={{ width: '100%', my: 1 }} />
+					<LanguageSelector />
 				</Box>
 			</Drawer>
 

@@ -15,6 +15,7 @@ const ProductCard = memo(
 	({
 		product,
 		isProductInCart,
+		showWishlistBtn,
 		disableLinkToDetails = false,
 		buyAgain = false,
 	}) => {
@@ -157,7 +158,7 @@ const ProductCard = memo(
 				<Typography variant="h6" sx={{ margin: 1, textAlign: 'center' }}>
 					${formattedStrPrice(price)}
 				</Typography>
-				<WishListIcon product={product} />
+				{showWishlistBtn && <WishListIcon product={product} />}
 
 				<AddRemoveProductButton
 					product={product}
@@ -177,6 +178,7 @@ ProductCard.propTypes = {
 	isProductInCart: PropTypes.bool.isRequired,
 	disableLinkToDetails: PropTypes.bool,
 	buyAgain: PropTypes.bool,
+	showWishlistBtn: PropTypes.bool,
 };
 
 export default ProductCard;

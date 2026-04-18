@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { getRandomColorFromString } from '../utils/colors';
 import { Trans } from 'react-i18next';
 import { useI18n } from '../context/I18nContext';
+import { useAppContext } from '../context/AppContext';
 
 const ProductPage = () => {
     const [idsInCart, setIdsInCart] = useState([]);
@@ -22,6 +23,7 @@ const ProductPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const { t } = useI18n();
     const location = useLocation();
+    const { isAuthenticated } = useAppContext()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -128,6 +130,7 @@ const ProductPage = () => {
                             <ProductCard
                                 key={product.id}
                                 product={product}
+                                showWishlistBtn={isAuthenticated}
                                 isProductInCart={idsInCart.includes(product.id)}
                             />
                         ))}
